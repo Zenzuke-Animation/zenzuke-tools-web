@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tools — Zenzuke</title>
+<meta name="description" content="Herramientas y scripts propios de Zenzuke para motion design: curvas de easing, tamaños y ratios, color, y scripts para After Effects, Illustrator y Cavalry.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/chrome.css">
+<style>
+  :root{
+    --bg:#0b0b0d; --fg:#f2f2f4; --dim:#8b8b93; --line:#232328; --hover:#14141a;
+    --sans:"Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg); color:var(--fg); font-family:var(--sans);
+    -webkit-font-smoothing:antialiased; min-height:100svh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:5rem 1.5rem;
+  }
+  main{width:100%; max-width:760px}
+  header{margin:0 0 3rem}
+  h1{margin:0 0 .75rem; font-size:clamp(1.75rem,4vw,2.5rem); font-weight:500; letter-spacing:-.02em}
+  p.lede{margin:0; color:var(--dim); font-size:1rem; max-width:52ch}
+  .list{display:flex; flex-direction:column; border-top:1px solid var(--line)}
+  .tool{
+    display:flex; align-items:center; gap:1.5rem; text-decoration:none; color:inherit;
+    padding:1.4rem .75rem; border-bottom:1px solid var(--line);
+    transition:background-color .18s ease, padding-left .18s ease;
+  }
+  .tool:hover{background:var(--hover); padding-left:1.25rem}
+  .tool:focus-visible{outline:2px solid var(--fg); outline-offset:-2px}
+  .tool-main{display:flex; flex-direction:column; gap:.35rem; flex:1; min-width:0}
+  .tool-name{font-size:1.125rem; font-weight:500; letter-spacing:-.01em}
+  .tool-tagline{color:var(--dim); font-size:.875rem; line-height:1.45}
+  .tool-go{color:var(--dim); font-size:1rem; transition:transform .18s ease, color .18s ease}
+  .tool:hover .tool-go{transform:translateX(4px); color:var(--fg)}
+  @media (max-width:600px){
+    body{padding:3rem 1rem; justify-content:flex-start}
+    .tool{gap:1rem; padding:1.2rem .5rem}
+  }
+</style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1 data-i18n="hub.title">Tools</h1>
+      <p class="lede" data-i18n="hub.lede">Herramientas y scripts propios para animar, medir y exportar. Todo en un mismo sitio, sin cuentas ni instalaciones.</p>
+    </header>
+    <div class="list">
+      <a class="tool" href="/scripts/">
+        <span class="tool-main">
+          <span class="tool-name" data-i18n="tool.scripts.name">Motion scripts &amp; tools</span>
+          <span class="tool-tagline" data-i18n="tool.scripts.tagline">Galería de scripts para After Effects, Illustrator y Cavalry: qué hace cada uno, cómo se usa y descarga directa.</span>
+        </span>
+        <span class="tool-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="tool" href="curves/">
+        <span class="tool-main">
+          <span class="tool-name" data-i18n="tool.curves.name">Motion Curves Lab</span>
+          <span class="tool-tagline" data-i18n="tool.curves.tagline">Editor de curvas de easing: dibuja la curva, copia el cubic-bezier y exporta GIF.</span>
+        </span>
+        <span class="tool-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="tool" href="sizes/">
+        <span class="tool-main">
+          <span class="tool-name" data-i18n="tool.sizes.name">Explorador de tamaños</span>
+          <span class="tool-tagline" data-i18n="tool.sizes.tagline">Tamaño original fijo y controles de ancho, alto, proporción y escala, con candados: mueve uno y los demás se adaptan.</span>
+        </span>
+        <span class="tool-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="tool" href="color/">
+        <span class="tool-main">
+          <span class="tool-name" data-i18n="tool.color.name">Conversor de color</span>
+          <span class="tool-tagline" data-i18n="tool.color.tagline">Pega un hex, elige formato (vídeo, cine, foto, YCbCr o modelos) y mira sus valores en 8 y 16 bit, de 0 a 1 y en hex, con la explicación de su gamma.</span>
+        </span>
+        <span class="tool-go" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </main>
+
+  <script>
+    /* Diccionario ES/EN del índice (idéntico al mecanismo del hub). */
+    window.MT_TOOLS_DICT = {
+      es: {
+        'hub.title': 'Tools',
+        'hub.lede': 'Herramientas y scripts propios para animar, medir y exportar. Todo en un mismo sitio, sin cuentas ni instalaciones.',
+        'tool.scripts.name': 'Motion scripts & tools',
+        'tool.scripts.tagline': 'Galería de scripts para After Effects, Illustrator y Cavalry: qué hace cada uno, cómo se usa y descarga directa.',
+        'tool.curves.name': 'Motion Curves Lab',
+        'tool.curves.tagline': 'Editor de curvas de easing: dibuja la curva, copia el cubic-bezier y exporta GIF.',
+        'tool.sizes.name': 'Explorador de tamaños',
+        'tool.sizes.tagline': 'Tamaño original fijo y controles de ancho, alto, proporción y escala, con candados: mueve uno y los demás se adaptan.',
+        'tool.color.name': 'Conversor de color',
+        'tool.color.tagline': 'Pega un hex, elige formato (vídeo, cine, foto, YCbCr o modelos) y mira sus valores en 8 y 16 bit, de 0 a 1 y en hex, con la explicación de su gamma.',
+      },
+      en: {
+        'hub.title': 'Tools',
+        'hub.lede': 'Home-made tools and scripts to animate, measure and export. All in one place, no accounts, nothing to install.',
+        'tool.scripts.name': 'Motion scripts & tools',
+        'tool.scripts.tagline': 'Script gallery for After Effects, Illustrator and Cavalry: what each one does, how to use it and direct download.',
+        'tool.curves.name': 'Motion Curves Lab',
+        'tool.curves.tagline': 'Easing curve editor: draw the curve, copy the cubic-bezier and export a GIF.',
+        'tool.sizes.name': 'Size explorer',
+        'tool.sizes.tagline': 'A fixed original size plus width, height, ratio and scale controls with locks: move one and the rest adapt.',
+        'tool.color.name': 'Color converter',
+        'tool.color.tagline': 'Paste a hex, pick a format (video, film, photo, YCbCr or models) and read its values at 8 and 16 bit, 0 to 1 and hex, with an explanation of its gamma.',
+      },
+    };
+  </script>
+  <script src="assets/i18n.js"></script>
+  <script>
+    /* Usa el mismo módulo de idioma del hub. La cabecera común no se monta aquí
+       (este índice YA es el índice, como en el hub), solo el diccionario. */
+    (function () {
+      var MT = window.MT_I18N;
+      MT.dict(window.MT_TOOLS_DICT);
+      MT.apply();
+      MT.onChange(function () { MT.apply(); });
+    })();
+  </script>
+</body>
+</html>
