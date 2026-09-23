@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="doc.title">Motion Curves Lab</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="../assets/chrome.css" />
+    <style>
+      :root{
+        --font-sans:"Inter", ui-sans-serif, system-ui, sans-serif;
+        --font-mono:"JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+        --ease:cubic-bezier(.4,0,.2,1);
+      }
+
+      /* --- base --- */
+      *,::before,::after,::backdrop{box-sizing:border-box;border:0 solid}
+      html{-webkit-text-size-adjust:100%;line-height:1.5;font-family:var(--font-sans);font-feature-settings:normal;font-variation-settings:normal}
+      body{margin:0;line-height:inherit}
+      h3{margin:0;font-size:inherit;font-weight:inherit}
+      button,input{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;
+                   border-radius:0;background-color:transparent;opacity:1;margin:0;padding:0;line-height:inherit}
+      button{cursor:pointer}
+      svg{display:block;vertical-align:middle}
+
+      /* --- stage --- */
+      .stage{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+             padding:4rem 2rem 2rem;user-select:none;-webkit-user-select:none;transition:background-color .5s var(--ease)}
+      .stack{display:flex;flex-direction:column;gap:3rem;align-items:center}
+      .visual{position:relative;width:594px;height:450px}          /* 80 + 64 + 450 */
+      .row{display:flex;flex-direction:row;gap:4rem;align-items:center;transform-origin:top left}
+      .row>*{flex:0 0 auto}   /* sin encogerse: el escalado lo hace .row, no el flex */
+
+      /* --- track + ball --- */
+      .track{position:relative;border-radius:9999px;width:80px;height:450px}
+      .ball{position:absolute;left:50%;transform:translateX(-50%);border-radius:9999px;width:60px;height:60px;
+            box-shadow:0 20px 25px -5px rgba(0,0,0,.1), 0 8px 10px -6px rgba(0,0,0,.1)}
+
+      /* --- curve editor --- */
+      .grid-wrap{position:relative;width:450px;height:450px}
+      .grid-box{position:absolute;inset:0;pointer-events:none;border-width:1px;border-style:solid}
+      .grid-box .vline{position:absolute;top:0;bottom:0;border-left-width:1px;border-left-style:solid}
+      .grid-box .hline{position:absolute;left:0;right:0;border-top-width:1px;border-top-style:solid}
+      .curve-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+
+      /* --- controls --- */
+      .controls{margin-top:1rem;display:flex;flex-direction:column;gap:1rem;align-items:center;width:100%;max-width:24rem}
+      .control-row{display:flex;gap:.5rem;width:100%}
+      .bezier-input{flex:1;background-color:rgba(0,0,0,.2);border-width:1px;border-style:solid;border-color:rgba(255,255,255,.1);
+                    border-radius:9999px;padding:.5rem 1.5rem .75rem;font-family:var(--font-mono);font-size:1rem;line-height:1.5;
+                    color:rgba(255,255,255,.9);text-align:center;outline:none;
+                    transition:color .15s var(--ease),background-color .15s var(--ease),border-color .15s var(--ease)}
+      .bezier-input::placeholder{color:rgba(255,255,255,.5)}
+      .bezier-input:focus{border-color:rgba(255,255,255,.3)}
+      .gif-btn{display:flex;align-items:center;gap:.5rem;padding:0 1.5rem;border-radius:9999px;font-weight:500;color:#fff;
+               transition:all .15s var(--ease)}
+      .gif-btn:hover{opacity:.8}
+      .gif-btn:disabled{opacity:.5}
+      .icon-btn{padding:.75rem;border-radius:9999px;background-color:rgba(255,255,255,.05);border-width:1px;border-style:solid;
+                border-color:rgba(255,255,255,.1);color:#fff;transition:background-color .15s var(--ease)}
+      .icon-btn:hover{background-color:rgba(255,255,255,.1)}
+      .presets{display:flex;gap:1rem;opacity:.3;transition:opacity .15s var(--ease)}
+      .presets:hover{opacity:1}
+      .preset{font-size:9px;line-height:1.5;font-family:var(--font-mono);color:#fff;text-transform:uppercase;letter-spacing:.2em}
+      .spin{animation:spin 1s linear infinite}
+      @keyframes spin{to{transform:rotate(360deg)}}
+
+      /* --- theme panel --- */
+      .panel{position:fixed;bottom:6rem;right:2rem;width:18rem;background-color:rgba(0,0,0,.8);
+             backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-width:1px;border-style:solid;
+             border-color:rgba(255,255,255,.1);border-radius:1rem;padding:1.5rem;
+             box-shadow:0 25px 50px -12px rgba(0,0,0,.25);z-index:50;
+             transition:opacity .2s ease-out,transform .2s ease-out}
+      .panel[hidden]{display:none}
+      .panel.closed{opacity:0;transform:scale(.95) translateY(10px)}
+      .panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+      .panel-title{font-size:.875rem;line-height:1.25rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.5)}
+      .panel-close{color:rgba(255,255,255,.3);transition:color .15s var(--ease)}
+      .panel-close:hover{color:#fff}
+      .panel-body{display:flex;flex-direction:column;gap:1rem}
+      .field{display:flex;flex-direction:column;gap:.375rem}
+      .field-row{display:flex;align-items:center;justify-content:space-between}
+      .field-label{font-size:10px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3)}
+      .field-value{font-size:10px;font-family:var(--font-mono);color:rgba(255,255,255,.5);text-transform:uppercase}
+      .field-inputs{display:flex;gap:.5rem}
+      .swatch{width:2rem;height:2rem;border-radius:.5rem;flex-shrink:0;border-width:1px;border-style:solid;border-color:rgba(255,255,255,.1)}
+      .hex-input{flex:1;min-width:0;background-color:rgba(255,255,255,.05);border-width:1px;border-style:solid;border-color:rgba(255,255,255,.1);
+                 border-radius:.5rem;padding:.25rem .75rem;font-size:.75rem;line-height:1rem;font-family:var(--font-mono);
+                 color:#fff;outline:none;transition:border-color .15s var(--ease)}
+      .hex-input:focus{border-color:rgba(255,255,255,.2)}
+      .reset-btn{display:block;margin-top:1.5rem;width:100%;padding:.5rem 0;background-color:rgba(255,255,255,.05);border-radius:.5rem;
+                 font-size:10px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);
+                 transition:all .15s var(--ease)}
+      .reset-btn:hover{background-color:rgba(255,255,255,.1);color:#fff}
+
+      /* --- móvil: misma composición, escalada a todo el ancho; controles en dos líneas --- */
+      @media (max-width:760px){
+        .stage{padding:1rem .5rem}
+        .stack{gap:2rem}
+        .bezier-input{min-width:0}
+        .panel{right:1rem;bottom:1rem;width:min(18rem,calc(100vw - 2rem))}
+      }
+      @media (max-width:600px){
+        .control-row{flex-wrap:wrap;justify-content:center;row-gap:.5rem}
+        .bezier-input{flex:1 1 100%}
+        .preset{font-size:10px;letter-spacing:.15em}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage" id="stage">
+      <div class="stack">
+        <div class="visual" id="visual">
+          <main class="row" id="row">
+            <div class="track" id="track">
+              <div class="ball" id="ball"></div>
+            </div>
+            <div class="grid-wrap">
+              <div class="grid-box" id="gridBox">
+                <div class="vline" style="left:25%"></div>
+                <div class="vline" style="left:50%"></div>
+                <div class="vline" style="left:75%"></div>
+                <div class="hline" style="top:25%"></div>
+                <div class="hline" style="top:50%"></div>
+                <div class="hline" style="top:75%"></div>
+              </div>
+              <svg class="curve-svg" viewBox="0 0 450 450" preserveAspectRatio="none">
+                <path id="curvePath" fill="none" stroke-width="4" stroke-linecap="round"></path>
+                <line id="accentLine" x1="0" y1="0" x2="0" y2="450" stroke-width="2"></line>
+                <circle id="accentDot" cx="0" cy="450" r="10"></circle>
+              </svg>
+            </div>
+          </main>
+        </div>
+
+        <div class="controls">
+          <div class="control-row">
+            <input id="bezierInput" class="bezier-input" type="text" placeholder="x1, y1, x2, y2" spellcheck="false"
+                   value="0.75, 0.00, 0.25, 1.00" />
+            <button id="gifBtn" class="gif-btn" data-i18n-title="gif.title" title="Export as GIF">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 15V3" />
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <path d="m7 10 5 5 5-5" />
+              </svg>
+              <span>GIF</span>
+            </button>
+            <button id="settingsBtn" class="icon-btn" data-i18n-title="settings.title" title="Theme Settings">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 17H5" />
+                <path d="M19 7h-9" />
+                <circle cx="17" cy="17" r="3" />
+                <circle cx="7" cy="7" r="3" />
+              </svg>
+            </button>
+          </div>
+          <div class="presets" id="presets"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel" hidden>
+      <div class="panel-head">
+        <h3 class="panel-title" data-i18n="panel.title">Theme Settings</h3>
+        <button class="panel-close" id="closePanel" data-i18n-title="panel.close" title="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="panel-body" id="panelBody"></div>
+      <button class="reset-btn" id="resetTheme" data-i18n="panel.reset">Reset to Defaults</button>
+    </div>
+
+    <script src="vendor/gif.js"></script>
+    <script src="../assets/i18n.js"></script>
+    <script src="i18n-es.js"></script>
+    <script>
+      MT_I18N.mountChrome();
+      MT_I18N.apply();
+    </script>
+    <script src="app.js"></script>
+  </body>
+</html>
