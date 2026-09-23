@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="doc.title">Explorador de tamaños</title>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/chrome.css">
+<style>
+  :root{
+    --bg:#0b0b0d; --panel:#101014; --fg:#f2f2f4; --dim:#8b8b93; --line:#232328;
+    --bloq:#e0a458; --error:#e06c5a;
+    --sans:"Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  }
+  *{box-sizing:border-box}
+  /* El atributo hidden tiene que ganar a las reglas de display de las filas de control. */
+  [hidden]{display:none !important}
+  html,body{margin:0; background:var(--bg); color:var(--fg); font-family:var(--sans)}
+  body{-webkit-font-smoothing:antialiased; padding:4.5rem 1.5rem 4rem}
+  .app{max-width:1180px; margin:0 auto}
+  header{margin-bottom:2.5rem}
+  h1{margin:0 0 .5rem; font-size:clamp(1.4rem,2.6vw,1.9rem); font-weight:500; letter-spacing:-.02em}
+  header p{margin:0; color:var(--dim); font-size:.9rem; max-width:68ch; line-height:1.6}
+
+  .grid{display:grid; grid-template-columns:minmax(320px,1fr) minmax(380px,1.1fr); gap:1.5rem; align-items:start}
+  @media (max-width:980px){ .grid{grid-template-columns:1fr} }
+
+  .col{border:1px solid var(--line); border-radius:10px; background:var(--panel); padding:1.5rem}
+  h2{margin:0 0 1.25rem; font-size:.72rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--dim)}
+
+  /* --- previsualización --- */
+  .lienzo{position:relative; border-radius:8px; background:#07070a; border:1px solid var(--line);
+          aspect-ratio:16/9; overflow:hidden}
+  .lienzo canvas{width:100%; height:100%; display:block}
+  .pista{position:absolute; left:.7rem; bottom:.7rem; font-size:.72rem; color:#6d6d75;
+         background:rgba(11,11,13,.75); border-radius:5px; padding:.25rem .5rem; pointer-events:none}
+  .lienzo.arrastrando{outline:2px dashed #4a4a55; outline-offset:-6px}
+
+  .origen{margin-top:1.25rem}
+  .origen .par{display:flex; align-items:center; gap:.5rem}
+  .origen input{font-family:var(--mono); font-size:1rem; background:#0b0b0d; color:var(--fg);
+                border:1px solid var(--line); border-radius:6px; padding:.55rem .6rem; width:100%; text-align:center}
+  .origen input:focus{outline:none; border-color:#4a4a55}
+  .origen input.mal{border-color:var(--error)}
+
+  /* --- campos de resolución con presets --- */
+  .campo-res{position:relative; flex:1; min-width:0; display:block}
+  .presets{position:absolute; z-index:20; top:calc(100% + .45rem); left:0;
+           display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:.2rem; padding:.45rem;
+           background:#101014; border:1px solid var(--line); border-radius:8px;
+           box-shadow:0 14px 28px rgba(0,0,0,.55)}
+  .presets button{appearance:none; background:none; border:1px solid transparent; border-radius:5px;
+                  color:#d6d6db; font-family:var(--mono); font-size:.78rem; line-height:1;
+                  padding:.42rem .3rem; cursor:pointer; text-align:center;
+                  transition:background-color .15s ease, color .15s ease, border-color .15s ease}
+  .presets button:hover{background:#1a1a20; border-color:#2c2c34; color:var(--fg)}
+  .presets button:focus-visible{outline:2px solid currentColor; outline-offset:1px}
+  .presets button.marcado{color:var(--bloq)}
+  .equis{color:var(--dim); font-family:var(--mono)}
+  .datos{margin:.9rem 0 0; font-size:.8rem; color:var(--dim); line-height:1.6}
+  .datos b{font-family:var(--mono); font-weight:400; color:#d6d6db}
+
+  /* --- controles --- */
+  .control{display:grid; grid-template-columns:112px 1fr auto; align-items:center; gap:1rem;
+           padding:1rem 0; border-bottom:1px solid #1a1a1f}
+  .control:first-of-type{padding-top:0}
+  .control .rotulo{font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; color:var(--dim)}
+  .control .entrada{display:flex; align-items:center; gap:.6rem; min-width:0; position:relative}
+  .control input{font-family:var(--mono); font-size:1.35rem; background:#0b0b0d; color:var(--fg);
+                 border:1px solid var(--line); border-radius:6px; padding:.5rem .7rem; width:100%; min-width:0}
+  .control input:focus{outline:none; border-color:#4a4a55}
+  .control input.mal{border-color:var(--error)}
+  .control input[readonly]{color:var(--bloq); cursor:not-allowed; border-color:#3a2f1e; background:#0f0d0a}
+  .control .unidad{font-family:var(--mono); font-size:.85rem; color:var(--dim); min-width:2.2rem}
+  .control .factor{font-family:var(--mono); font-size:.9rem; color:var(--dim); min-width:3.4rem}
+  .control.doble{padding-top:.35rem; border-bottom:1px solid #1a1a1f}
+  .control.doble .rotulo{visibility:hidden}
+
+  /* candado */
+  .candado{appearance:none; background:none; border:1px solid var(--line); border-radius:6px;
+           width:38px; height:38px; display:flex; align-items:center; justify-content:center;
+           color:#6d6d75; cursor:pointer; transition:color .18s ease, border-color .18s ease}
+  .candado:hover{color:var(--fg); border-color:#3a3a42}
+  .candado:focus-visible{outline:2px solid currentColor; outline-offset:2px}
+  .candado svg{width:18px; height:18px}
+  .candado .abierto{display:block}
+  .candado .cerrado{display:none}
+  .candado[aria-pressed="true"]{color:var(--bloq); border-color:#3a2f1e}
+  .candado[aria-pressed="true"] .abierto{display:none}
+  .candado[aria-pressed="true"] .cerrado{display:block}
+  /* Candado abierto cuando el control está libre, cerrado cuando clava su valor. */
+
+  /* atajos de proporción */
+  .atajos{margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:.5rem}
+  .atajos button{appearance:none; background:none; border:1px solid var(--line); border-radius:6px;
+                 color:var(--dim); font:inherit; font-size:.78rem; padding:.4rem .65rem; cursor:pointer;
+                 transition:color .18s ease, border-color .18s ease}
+  .atajos button:hover{color:var(--fg); border-color:#3a3a42}
+  .atajos button:focus-visible{outline:2px solid currentColor; outline-offset:2px}
+
+  .pie{margin-top:1.75rem; display:flex; gap:.75rem; flex-wrap:wrap}
+  .pie button{appearance:none; border:1px solid var(--line); border-radius:6px; background:none;
+              color:var(--fg); font:inherit; font-size:.85rem; padding:.6rem 1rem; cursor:pointer;
+              transition:background-color .18s ease}
+  .pie button:hover{background:#14141a}
+  .pie button:focus-visible{outline:2px solid currentColor; outline-offset:2px}
+
+  .nota{margin:1.25rem 0 0; font-size:.8rem; color:var(--bloq); line-height:1.55}
+  .aviso{margin:.75rem 0 0; font-size:.8rem; color:#d6d6db; line-height:1.55}
+  .aviso:empty{margin:0}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1 data-i18n="h1">Explorador de tamaños</h1>
+    <p data-i18n="lede">Escribe el tamaño original a la izquierda: es el ancla y no cambia. A la derecha ajustas ancho, alto, proporción y escala, con candados para clavar los que quieras mientras mueves los demás.</p>
+  </header>
+
+  <div class="grid">
+    <section class="col">
+      <h2 data-i18n="h2.original">Original</h2>
+
+      <div class="lienzo" id="lienzo">
+        <canvas id="patron"></canvas>
+        <span class="pista" data-i18n="pista.soltar">Suelta una imagen o un vídeo, o haz clic para elegir archivo</span>
+        <input type="file" id="fichero" accept="image/*,video/*" hidden>
+      </div>
+
+      <div class="origen">
+        <div class="par">
+          <span class="campo-res"><input id="origen-ancho" type="text" inputmode="numeric" autocomplete="off" value="1920"
+                 data-i18n-aria="aria.origenAncho" aria-label="Ancho del original"></span>
+          <span class="equis">×</span>
+          <span class="campo-res"><input id="origen-alto" type="text" inputmode="numeric" autocomplete="off" value="1080"
+                 data-i18n-aria="aria.origenAlto" aria-label="Alto del original"></span>
+          <button class="pie-boton" id="aplicar-origen" data-i18n="boton.aplicar"
+                  style="appearance:none;border:1px solid var(--line);border-radius:6px;background:none;color:var(--fg);font:inherit;font-size:.8rem;padding:.55rem .8rem;cursor:pointer">Aplicar</button>
+        </div>
+        <p class="datos" id="origen-datos"></p>
+      </div>
+    </section>
+
+    <section class="col">
+      <h2 data-i18n="h2.control">Transformación</h2>
+
+      <div class="control">
+        <span class="rotulo" data-i18n="rotulo.ancho">Ancho</span>
+        <span class="entrada"><span class="campo-res"><input id="ancho" type="text" inputmode="numeric" autocomplete="off"></span><span class="unidad" data-i18n="unidad.px">px</span></span>
+        <button class="candado" id="candado-ancho" data-candado="ancho" type="button" aria-pressed="false"
+                data-i18n-aria="aria.candadoAncho" aria-label="Bloquear ancho">
+          <svg class="cerrado" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>
+          </svg>
+          <svg class="abierto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 7.5-1.9"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="control">
+        <span class="rotulo" data-i18n="rotulo.alto">Alto</span>
+        <span class="entrada"><span class="campo-res"><input id="alto" type="text" inputmode="numeric" autocomplete="off"></span><span class="unidad" data-i18n="unidad.px">px</span></span>
+        <button class="candado" id="candado-alto" data-candado="alto" type="button" aria-pressed="false"
+                data-i18n-aria="aria.candadoAlto" aria-label="Bloquear alto">
+          <svg class="cerrado" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>
+          </svg>
+          <svg class="abierto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 7.5-1.9"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="control">
+        <span class="rotulo" data-i18n="rotulo.ratio">Proporción</span>
+        <span class="entrada">
+          <input id="ratio-a" type="text" inputmode="numeric" autocomplete="off"
+                 data-i18n-aria="aria.ratioA" aria-label="Proporción, primer número">
+          <span class="equis">:</span>
+          <input id="ratio-b" type="text" inputmode="numeric" autocomplete="off"
+                 data-i18n-aria="aria.ratioB" aria-label="Proporción, segundo número">
+          <span class="equis" id="ratio-aprox" hidden>≈</span>
+        </span>
+        <button class="candado" id="candado-ratio" data-candado="ratio" type="button" aria-pressed="false"
+                data-i18n-aria="aria.candadoRatio" aria-label="Bloquear proporción">
+          <svg class="cerrado" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>
+          </svg>
+          <svg class="abierto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 7.5-1.9"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="control doble">
+        <span class="rotulo" aria-hidden="true">·</span>
+        <span class="entrada">
+          <input id="ratio-dec" type="text" inputmode="decimal" autocomplete="off"
+                 data-i18n-aria="aria.ratioDec" aria-label="Proporción en un solo número">
+        </span>
+        <span></span>
+      </div>
+
+      <div class="control" id="fila-escala-x">
+        <span class="rotulo">
+          <span id="rotulo-escala-unico" data-i18n="rotulo.escala">Escala</span>
+          <span id="rotulo-escala-eje" data-i18n="rotulo.escalaX" hidden>Escala X</span>
+        </span>
+        <span class="entrada">
+          <input id="escala-x" type="text" inputmode="decimal" autocomplete="off">
+          <span class="unidad">%</span>
+          <span class="factor" id="factor-x"></span>
+        </span>
+        <button class="candado" id="candado-escala-x" data-candado="escalaX" type="button" aria-pressed="false"
+                data-i18n-aria="aria.candadoEscala" aria-label="Bloquear escala">
+          <svg class="cerrado" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>
+          </svg>
+          <svg class="abierto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 7.5-1.9"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="control" id="fila-escala-y" hidden>
+        <span class="rotulo" id="rotulo-escala-y" data-i18n="rotulo.escalaY">Escala Y</span>
+        <span class="entrada">
+          <input id="escala-y" type="text" inputmode="decimal" autocomplete="off">
+          <span class="unidad">%</span>
+          <span class="factor" id="factor-y"></span>
+        </span>
+        <button class="candado" id="candado-escala-y" data-candado="escalaY" type="button" aria-pressed="false"
+                data-i18n-aria="aria.candadoEscalaY" aria-label="Bloquear escala Y">
+          <svg class="cerrado" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>
+          </svg>
+          <svg class="abierto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 7.5-1.9"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="atajos" id="atajos"></div>
+
+      <div class="pie">
+        <button id="reset" type="button" data-i18n="boton.reset">Volver al original</button>
+        <button id="copiar" type="button" data-i18n="boton.copiar">Copiar</button>
+      </div>
+
+      <p class="nota" id="nota-uniforme" hidden data-i18n="nota.noUniforme">No es la proporción del original: en pantalla esto es un estirado.</p>
+      <p class="aviso" id="aviso"></p>
+    </section>
+  </div>
+</div>
+<script src="../assets/i18n.js"></script>
+<script src="i18n-en.js"></script>
+<script src="calc.js"></script>
+<script>
+  MT_I18N.mountChrome();
+  MT_I18N.apply();
+</script>
+<script src="app.js"></script>
+</body>
+</html>
