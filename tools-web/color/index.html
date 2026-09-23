@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="doc.title">Conversor de color</title>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/chrome.css">
+<style>
+  :root{
+    --bg:#0b0b0d; --panel:#101014; --fg:#f2f2f4; --dim:#8b8b93; --line:#232328;
+    --warn:#e0a458; --error:#e06c5a;
+    --sans:"Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0; background:var(--bg); color:var(--fg); font-family:var(--sans)}
+  body{-webkit-font-smoothing:antialiased; padding:4.5rem 1.5rem 4rem}
+  .app{max-width:1240px; margin:0 auto}
+  header{margin-bottom:2.5rem}
+  h1{margin:0 0 .5rem; font-size:clamp(1.4rem,2.6vw,1.9rem); font-weight:500; letter-spacing:-.02em}
+  header p{margin:0; color:var(--dim); font-size:.9rem; max-width:64ch; line-height:1.6}
+
+  .grid{display:grid; grid-template-columns:minmax(230px,.85fr) minmax(320px,1.15fr) minmax(300px,1fr); gap:1.5rem; align-items:start}
+  @media (max-width:1040px){ .grid{grid-template-columns:1fr} }
+  .col{border:1px solid var(--line); border-radius:10px; background:var(--panel); padding:1.25rem}
+  h2{margin:0 0 1rem; font-size:.72rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--dim)}
+
+  .swatch{width:100%; height:130px; border-radius:8px; border:1px solid var(--line)}
+  .swatch.grande{height:160px}
+
+  label{display:block; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); margin:1.25rem 0 .4rem}
+  input,select{font-family:var(--mono); font-size:.9rem; background:#0b0b0d; color:var(--fg);
+        border:1px solid var(--line); border-radius:6px; padding:.55rem .6rem; width:100%}
+  input:focus,select:focus{outline:none; border-color:#4a4a55}
+  input.mal{border-color:var(--error)}
+  .fila{display:grid; gap:.5rem; margin-top:.75rem}
+  .fila.rgb,.fila.hsl{grid-template-columns:repeat(3,1fr)}
+  .campo{display:flex; flex-direction:column; gap:.3rem}
+  .campo span{font-family:var(--mono); font-size:.68rem; color:var(--dim)}
+
+  .ficha h3{margin:.9rem 0 0; font-size:1.15rem; font-weight:500; letter-spacing:-.01em}
+  .grupo-etiqueta{margin:.85rem 0 0; font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--dim)}
+  .explicacion{margin:.9rem 0 0; font-size:.9rem; line-height:1.65; color:#d6d6db}
+  dl.datos{margin:1.25rem 0 0; display:grid; gap:.7rem}
+  dl.datos div{display:grid; grid-template-columns:104px 1fr; gap:.75rem; padding-bottom:.7rem; border-bottom:1px solid #1a1a1f}
+  dl.datos div:last-child{border-bottom:0; padding-bottom:0}
+  /* las notas largas van a ancho completo; en dos columnas quedarían ilegibles */
+  dl.datos div.largo{grid-template-columns:1fr; gap:.3rem}
+  dl.datos dt{font-family:var(--mono); font-size:.68rem; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); padding-top:.15rem}
+  dl.datos dd{margin:0; font-size:.85rem; line-height:1.55; color:#d6d6db}
+  dl.datos dd.mono{font-family:var(--mono); font-size:.8rem}
+
+  .nota{font-size:.78rem; color:var(--dim); line-height:1.55; margin:1rem 0 0}
+  .aviso{margin:1rem 0 0; font-size:.82rem; line-height:1.55; color:var(--warn); border-left:2px solid var(--warn); padding-left:.7rem}
+  .salida{margin-top:1.25rem; display:grid; gap:.75rem}
+  .dato{display:grid; grid-template-columns:74px 1fr; gap:.75rem; align-items:baseline}
+  .dato span.et{font-family:var(--mono); font-size:.68rem; letter-spacing:.06em; text-transform:uppercase; color:var(--dim)}
+  .dato b{font-family:var(--mono); font-size:.9rem; font-weight:400}
+  .dato b.recortado{color:var(--warn)}
+  .sin-rgb{font-size:.82rem; color:var(--dim); line-height:1.55; margin:0}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1 data-i18n="h1">Conversor de color</h1>
+    <p data-i18n="lede">Escribe un color sRGB a la izquierda. En el centro eliges el formato y ves qué es, con qué gamma y para qué se usa. A la derecha sale ese mismo color convertido a ese formato: los valores que hay que copiar para que se vea igual.</p>
+  </header>
+
+  <div class="grid">
+    <section class="col">
+      <h2 data-i18n="h2.original">Color original</h2>
+      <div class="swatch" id="sw-origen"></div>
+
+      <label for="hex" data-i18n="label.hex">Hexadecimal</label>
+      <input id="hex" type="text" spellcheck="false" autocomplete="off" value="#3E7BFA">
+
+      <div class="fila rgb">
+        <div class="campo"><span>R</span><input id="r" type="text" inputmode="numeric" autocomplete="off"></div>
+        <div class="campo"><span>G</span><input id="g" type="text" inputmode="numeric" autocomplete="off"></div>
+        <div class="campo"><span>B</span><input id="b" type="text" inputmode="numeric" autocomplete="off"></div>
+      </div>
+
+      <div class="fila hsl">
+        <div class="campo"><span>H</span><input id="h" type="text" inputmode="numeric" autocomplete="off"></div>
+        <div class="campo"><span>S</span><input id="s" type="text" inputmode="numeric" autocomplete="off"></div>
+        <div class="campo"><span>L</span><input id="l" type="text" inputmode="numeric" autocomplete="off"></div>
+      </div>
+
+      <dl class="datos" id="origen-datos"></dl>
+    </section>
+
+    <section class="col ficha">
+      <h2 data-i18n="h2.formato">Formato</h2>
+      <select id="perfil" data-i18n-aria="select.aria" aria-label="Formato de conversión"></select>
+      <h3 id="f-nombre"></h3>
+      <p class="grupo-etiqueta" id="f-grupo"></p>
+      <p class="explicacion" id="f-texto"></p>
+      <dl class="datos" id="f-datos"></dl>
+    </section>
+
+    <section class="col">
+      <h2 data-i18n="h2.conversion">Conversión</h2>
+      <div class="swatch grande" id="sw-adaptado"></div>
+      <p class="nota" id="nota-adaptado"></p>
+      <p class="aviso" id="aviso-gamut" hidden></p>
+      <div class="salida" id="salida"></div>
+    </section>
+  </div>
+</div>
+<script src="../assets/i18n.js"></script>
+<script src="i18n-en.js"></script>
+<script>
+  MT_I18N.mountChrome();
+  MT_I18N.apply();
+</script>
+<script src="app.js"></script>
+</body>
+</html>
