@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}}</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app-container">
+    <!-- Cabecera: el titular se genera del catálogo -->
+    <header id="gallery-header">
+      <div class="title-group">
+        <h1 id="main-title" data-i18n="app-title">Scripts &amp; tools</h1>
+        <p id="sub-title" class="status-indicator">
+          <span class="status-dot"></span>
+          <span id="last-update" data-i18n="last-update"></span>
+        </p>
+      </div>
+
+      <div id="language-toggle-wrapper">
+        <button id="btn-lang-en" class="lang-btn" data-lang="en">EN</button>
+        <button id="btn-lang-es" class="lang-btn" data-lang="es">ES</button>
+      </div>
+    </header>
+
+    <!-- Buscador y filtros: programa (pestañas) y función (chips) -->
+    <section id="filters-section">
+      <div class="search-box-container">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search tools..."
+          data-i18n-placeholder="search-placeholder"
+          autocomplete="off"
+        >
+        <button id="search-clear-btn" aria-label="Clear search" style="display: none;">&times;</button>
+      </div>
+
+      <div class="filter-row">
+        <span class="filter-label" data-i18n="label-host">Software</span>
+        <div id="host-tabs" class="filter-list" role="tablist"></div>
+      </div>
+
+      <div class="filter-row">
+        <span class="filter-label" data-i18n="label-tag">Function</span>
+        <div id="tag-chips" class="filter-list" role="group"></div>
+      </div>
+    </section>
+
+    <main id="main-gallery">
+      <div id="loading-indicator" data-i18n="loading-text">Loading tools catalog...</div>
+
+      <div id="error-message" style="display: none;">
+        <span class="error-icon">⚠️</span>
+        <span id="error-text"></span>
+      </div>
+
+      <div id="no-results" style="display: none;" data-i18n="no-results-text"></div>
+
+      <div id="accordion-container" style="display: none;"></div>
+
+      <button id="toggle-deprecated" class="deprecated-toggle" type="button" hidden></button>
+    </main>
+
+    <footer id="gallery-footer">
+      <p>&copy; Zenzuke. <a class="basiclink" href="https://www.zenzuke.com">Visit my website.</a></p>
+    </footer>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
