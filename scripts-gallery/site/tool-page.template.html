@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{NAME_ES}} — {{CATEGORIES}} | Zenzuke</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app-container" class="tool-page">
+    <header id="gallery-header">
+      <div class="title-group">
+          <a class="back-link" href="../" data-i18n="back">← Volver al listado</a>
+          <h1 id="main-title">{{NAME}}</h1>
+          <p id="sub-title" class="status-indicator">
+            <span class="status-dot"></span>
+            <span>{{CATEGORIES}} · v{{VERSION}} · <span id="tool-updated">{{UPDATED}}</span> · {{LICENSE}}</span>
+          </p>
+        </div>
+
+      <div id="language-toggle-wrapper">
+        <button id="btn-lang-en" class="lang-btn" data-lang="en">EN</button>
+        <button id="btn-lang-es" class="lang-btn" data-lang="es">ES</button>
+      </div>
+    </header>
+
+    <main id="main-gallery">
+      {{DEPRECATED}}
+
+      <div class="download-container download-container--top">
+        <a class="download-btn" href="{{DOWNLOAD_URL}}" rel="noopener">
+          <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
+          </svg>
+          <span data-i18n="btn-download">Descargar</span>
+        </a>
+      </div>
+
+      <div id="tool-sections">
+        {{DESCRIPTION}}
+        {{INSTALL}}
+        {{TIMELINE}}
+        {{LIMITATIONS}}
+        {{USES}}
+        {{CHANGELOG}}
+      </div>
+    </main>
+
+    <footer id="gallery-footer">
+      <p>&copy; Zenzuke. <a class="basiclink" href="https://www.zenzuke.com">Visit my website.</a></p>
+    </footer>
+  </div>
+
+  <script type="application/json" id="tool-data">{{TOOL_JSON}}</script>
+  <script type="module" src="../js/tool-page.js"></script>
+</body>
+</html>
