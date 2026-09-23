@@ -1,0 +1,42 @@
+/* Cabecera común de las herramientas del hub: vuelta al índice y selector de idioma.
+   Una sola hoja para las tres páginas, para que la cabecera sea idéntica en todas.
+   Colores en gris sobre fondo oscuro; nada de píldoras ni insignias. */
+
+.mt-chrome{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  padding:.85rem 1.25rem;
+  font-family:"Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-size:.75rem; letter-spacing:.02em;
+  pointer-events:none;                 /* solo los hijos capturan el ratón */
+  user-select:none; -webkit-user-select:none;
+}
+.mt-chrome > *{pointer-events:auto}
+
+.mt-back{
+  display:inline-flex; align-items:center; gap:.4rem;
+  color:#8b8b93; text-decoration:none;
+  transition:color .18s ease;
+}
+.mt-back:hover{color:#f2f2f4}
+.mt-back:focus-visible{outline:2px solid currentColor; outline-offset:3px; border-radius:2px}
+.mt-back .mt-arrow{transition:transform .18s ease}
+.mt-back:hover .mt-arrow{transform:translateX(-2px)}
+
+.mt-lang{display:inline-flex; align-items:center; gap:.35rem; color:#8b8b93; margin-left:auto}
+/* El margin-left:auto es lo que lleva el selector al ángulo derecho. No sirve confiar en
+   justify-content:space-between: en el hub no hay enlace de vuelta, la cabecera se queda
+   con un solo hijo y space-between lo pegaría a la izquierda. */
+.mt-lang button{
+  appearance:none; background:none; border:0; padding:.1rem .1rem; margin:0;
+  font:inherit; letter-spacing:.06em; color:#6d6d75; cursor:pointer;
+  transition:color .18s ease;
+}
+.mt-lang button:hover{color:#f2f2f4}
+.mt-lang button:focus-visible{outline:2px solid currentColor; outline-offset:3px; border-radius:2px}
+.mt-lang button[aria-pressed="true"]{color:#f2f2f4}
+.mt-lang .mt-sep{color:#3a3a42}
+
+@media (max-width:600px){
+  .mt-chrome{padding:.7rem .8rem; font-size:.7rem}
+}
