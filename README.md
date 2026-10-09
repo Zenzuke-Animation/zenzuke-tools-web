@@ -27,4 +27,4 @@ python3 build.py   # requires PyYAML
 ## Public downloads
 
 The actual downloadable scripts live in the releases of their own repos
-(`cavalry-scripts`, `ae-scripts`, `zen-ease`) — this repo is source only.
+(`cavalry-scripts`, `adobe-scripts`, `zen-ease`) — this repo is source only.
