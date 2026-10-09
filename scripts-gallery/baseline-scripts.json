@@ -1,0 +1,494 @@
+[
+  {
+    "id": "2d-parameter-to-null",
+    "version": "_Deprecated",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/adw07r94tsyqz414imq76/2DPrameterToNull.jsx?rlkey=jkwjy3i6euaz643cp0fhcrlkj&dl=1",
+    "en": {
+      "name": "2D Parameter to Null",
+      "description": "Creates a null for each 2D (x,y) property of selected effects in your composition. The null is placed at the current position of the point and the property is linked to it via expression, so you can animate or move it from the null in the comp.",
+      "instructions": "1. Open your comp and select one or more point properties of an effect (e.g. Center of Turbulent Displace).\n2. Run the script.\n3. Nulls with names like 'C_[Effect]_[Property]' are created, already connected via expression.",
+      "timelineCreation": "Creates null layers in the composition, one per selected point property, positioned at the current point location.",
+      "limitations": "Only works with 2D (x,y) properties. Does not work with 3D properties or non-point controls. Renaming or deleting the null breaks the link.",
+      "typicalUses": "Animating effect centers (Glow, Turbulent Displace, Lens Flare), syncing multiple points with easy-to-move nulls, creating cleaner rig controls inside the comp"
+    },
+    "es": {
+      "name": "2D Parameter to Null",
+      "description": "El script crea un *null* por cada propiedad de punto (x,y) de efectos seleccionados en tu comp. Ese null se coloca en la posición actual del punto y la propiedad se vincula a él con una expresión, para que puedas animarla o moverla desde el null en el comp.\n\n**OBSOLETO / DEPRECATED**\nAFTER EFFECTS HA METIDO UNA COSA ASI POR DEFECTO CUANDO HACES BOTÓN DERECHO EN UNA PROPIEDAD",
+      "instructions": "Abre tu comp, selecciona una o varias propiedades de punto de un efecto (por ejemplo *Center* de Turbulent Displace) y ejecuta el script. Automáticamente tendrás nulls con nombres tipo `C_[Efecto]_[Propiedad]`, ya conectados por expresión.",
+      "timelineCreation": "Cada propiedad seleccionada genera un null en la comp, con el nombre del efecto y la propiedad, y con una expresión que traduce bien las coordenadas (de comp a capa). Así el null controla directamente la posición del punto del efecto.",
+      "limitations": "Funciona solo con propiedades 2D (x,y). Si renombras o borras el null, la propiedad vuelve a su valor original. No sirve para propiedades 3D ni para controles que no sean puntos.",
+      "typicalUses": "Animar centros de efectos (Glow, Turbulent Displace, Lens Flare), sincronizar varios puntos con nulls fáciles de mover, o crear rigs de control más limpios y prácticos dentro de la comp."
+    },
+    "categories": [
+      "After Effects",
+      "Rigging",
+      "Timeline"
+    ]
+  },
+  {
+    "id": "create-face-rig",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/22a72nvgnf2hl5xkq1fgy/CreateFaceRig.jsx?rlkey=l80v4u1w03f62grbz1zxdde2p&dl=1",
+    "en": {
+      "name": "Create Face Rig",
+      "description": "Opens a 'Face Rig Creator' panel that creates two control nulls (Head_Control and Look_Control) and applies a parallax expression (based on a 0–1 multiplier) to the position of selected layers, using Look_Control as the driver.",
+      "instructions": "1. Run the script to open the panel.\n2. Select a reference layer in the comp and click 'Create Control Nulls' (creates the nulls and parents the layer to Head_Control).\n3. Select the layers to affect (avoid the nulls), adjust the multiplier with the slider/input box, and click 'Apply to Selected Layers' to add the parallax expression.",
+      "timelineCreation": "Creates two null layers: Head_Control (at the reference layer's position) and Look_Control (child of Head, at [0,0] relative with 50% scale). Adds position expressions to selected layers.",
+      "limitations": "Only affects 2D position and should not be applied to Head_Control/Look_Control themselves. Changing the null names breaks the expression. Does not manage real 3D depth; it's faux-parallax based on 2D offset.",
+      "typicalUses": "Quick 2D facial rigs: move Look_Control to simulate eye movement, brow lift, cheek, nose displacement, etc., with different multipliers per layer for depth sensation and subtle head-turn response"
+    },
+    "es": {
+      "name": "Create Face Rig",
+      "description": "Abre un panel “Face Rig Creator” que crea dos nulls de control (`Head_Control` y `Look_Control`) y aplica una expresión de *parallax* (según un multiplicador 0–1) a la **posición** de las capas seleccionadas, usando la posición de `Look_Control` como driver.",
+      "instructions": "Ejecuta el script para abrir el panel, selecciona en la comp una capa “referencia” y pulsa **Create Control Nulls** (crea los nulls y parenta la capa al `Head_Control`). Luego selecciona las capas a afectar (evita los nulls), ajusta el **multiplier** con el slider/caja, y pulsa **Apply to Selected Layers** para añadir la expresión de parallax.",
+      "timelineCreation": "`Head_Control` (en la posición de la capa referencia) y `Look_Control` (hijo del Head, en [0,0] relativo con escala 50%). A las capas seleccionadas les añade en **Position**: `value + thisComp.layer('Look_Control').transform.position * multiplier;`.",
+      "limitations": "Solo afecta **posición 2D** y no debe aplicarse a los propios `Head_Control`/`Look_Control`. Si cambias los nombres de los nulls, la expresión se rompe. No gestiona depth 3D real; es un faux-parallax basado en offset 2D.",
+      "typicalUses": "Rigs faciales 2D rápidos: mover `Look_Control` para simular mirada, desplazamiento de cejas, mofletes, nariz, etc., con distintos multiplicadores por capa para sensación de profundidad y respuesta sutil al *head turn*."
+    },
+    "categories": [
+      "After Effects",
+      "Rigging"
+    ]
+  },
+  {
+    "id": "delete-if-no-children-or-matte",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/4eu4d2jfyotz5r9pn4tz9/DeleteIfNoChildrenOrMatte.jsx?rlkey=b7nyy38duv1r20cfcr5tju9dx&dl=1",
+    "en": {
+      "name": "Delete If No Children Or Matte",
+      "description": "Acts as a 'safety filter' for timeline cleanup. Analyzes selected layers and only deletes those that have no active dependency function. Specifically, it protects and does NOT delete any layer that serves as a 'Parent' of another or is used as a 'Track Matte' by another layer in the project.",
+      "instructions": "1. Select a group of layers you believe are redundant or 'garbage' in your composition.\n2. Run the script.\n3. The script processes the selection, deletes layers that truly do nothing, and shows an alert listing the names of layers it kept and the reason (whether because it's a Parent or a Matte Source).",
+      "timelineCreation": "Does not create new elements. Its function is exclusively intelligent cleanup of the timeline.",
+      "limitations": "Optimized for modern After Effects versions (23.0+). Only analyzes layers you have selected beforehand; does not scan the entire composition automatically to avoid deleting elements you might want to keep for other reasons.",
+      "typicalUses": "Deep cleanup in heavy projects without fear of breaking rigging or mattes, optimizing compositions with hundreds of layers where you're unsure which Null or solid is dispensable, ensuring that deleting reference layers doesn't orphan others that depend on their position or alpha channel"
+    },
+    "es": {
+      "name": "Delete If No Children Or Matte",
+      "description": "El script actúa como un \"filtro de seguridad\" para la limpieza de tu timeline. Analiza las capas seleccionadas y solo elimina aquellas que no tengan una función de dependencia activa. Específicamente, protege y **no borra** ninguna capa que esté sirviendo como \"Padre\" de otra o que esté siendo utilizada como \"Track Matte\" (Mate de seguimiento) por otra capa del proyecto.",
+      "instructions": "Selecciona un grupo de capas que creas que son redundantes o \"basura\" en tu composición y ejecuta el script. El script procesará la selección, eliminará las que realmente no hacen nada y te mostrará un cuadro de alerta listando los nombres de las capas que decidió conservar y el motivo (si es por ser Padre o por ser Fuente de Mate).",
+      "timelineCreation": "No crea ningún elemento nuevo. Su función es exclusivamente de **limpieza inteligente**. Al ejecutarse, realiza un escaneo inverso de tu selección para evitar errores de índice y verifica mediante código si cada capa tiene hijos vinculados o si es el motor visual de un mate de seguimiento en cualquier otra capa de la composición.",
+      "limitations": "El script está optimizado para versiones modernas de After Effects (23.0 en adelante) al utilizar la propiedad `trackMatteLayer`. Solo analiza las capas que tengas **seleccionadas previamente**; no escanea toda la composición automáticamente para evitar borrar elementos que podrías querer mantener por otras razones.",
+      "typicalUses": "Hacer limpieza profunda en proyectos pesados sin miedo a romper el \"rigging\" o los mates, optimizar composiciones con cientos de capas donde no estás seguro de qué Null o sólido es prescindible, y asegurar que al borrar capas de referencia no dejes huérfanas a otras que dependen de su posición o su canal alfa."
+    },
+    "categories": [
+      "After Effects",
+      "Utility",
+      "Timeline"
+    ]
+  },
+  {
+    "id": "dissolve-parent",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/q7v28brcm31fcvej1uio4/DissolveParent.jsx?rlkey=u7q9lxu7lobtv1y3xq229ikj9&dl=1",
+    "en": {
+      "name": "Dissolve Parent",
+      "description": "Eliminates a selected layer (parent) and automatically transfers all its 'children' to the next hierarchy level. If the deleted layer had a parent, the children link to that grandparent; if it had no parent, the children become free but maintain their current position in space.",
+      "instructions": "1. Open your composition.\n2. Select exactly one layer that is acting as a parent to others.\n3. Run the script.\n4. The script reassigns the parenting links of all dependent layers and deletes the selected layer in a single step.",
+      "timelineCreation": "Does not create new objects. It performs a restructuring of the hierarchy in the timeline. The script uses After Effects' internal logic so that when reassigning the parent, child layers don't jump position or change their transforms, maintaining the visual design.",
+      "limitations": "Only works if you have exactly one layer selected. If you try to run it without selecting anything or with multiple layers chosen, the script shows an alert and performs no action. Designed to clean the hierarchy one layer at a time.",
+      "typicalUses": "Cleaning unnecessary nulls in a rig, eliminating reference layers once they're no longer needed without breaking children animation, simplifying complex parentage structures (passing links from a 'parent' directly to the 'grandparent') to have a more organized timeline"
+    },
+    "es": {
+      "name": "Dissolve Parent",
+      "description": "El script elimina una capa seleccionada (padre) y transfiere automáticamente todos sus \"hijos\" al siguiente nivel de la jerarquía. Si la capa eliminada tenía a su vez un padre, los hijos se vinculan a ese abuelo; si no tenía padre, los hijos quedan libres, pero manteniendo su posición actual en el espacio.",
+      "instructions": "Abre tu composición, selecciona **exactamente una capa** que esté actuando como padre de otras y ejecuta el script. El script reasignará los vínculos de parentesco de todas las capas dependientes y borrará la capa seleccionada en un solo paso.",
+      "timelineCreation": "No crea objetos nuevos. Lo que hace es una **reestructuración de la jerarquía** en el timeline. El script utiliza la lógica interna de After Effects para que, al reasignar el padre, las capas \"hijas\" no salten de posición ni cambien sus transformaciones, manteniendo visualmente el diseño original.",
+      "limitations": "Solo funciona si tienes **una sola capa seleccionada**. Si intentas ejecutarlo sin seleccionar nada o con varias capas elegidas a la vez, el script mostrará un aviso y no realizará ninguna acción. Está diseñado para limpiar la jerarquía de una en una.",
+      "typicalUses": "Limpiar nulls innecesarios en un rig, eliminar capas de referencia una vez que ya no se necesitan sin romper la animación de los hijos, o simplificar estructuras de parentesco complejas (pasando los vínculos de un \"padre\" directamente al \"abuelo\") para tener un timeline más organizado."
+    },
+    "categories": [
+      "After Effects",
+      "Utility",
+      "Timeline"
+    ]
+  },
+  {
+    "id": "freeze-property",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/2iq4o4acakzgrulgvy2wk/FreezeProperty.jsx?rlkey=mymdwhuhvk7x8dzav6mln2zf1&dl=1",
+    "en": {
+      "name": "Freeze Property",
+      "description": "Freezes selected properties by converting their current value into a fixed expression, rounded to two decimal places. This lets you lock animated positions, scales, opacities, etc., cleanly without having to set keyframes.",
+      "instructions": "1. Select the properties you want to freeze in your comp (position, scale, rotation, opacity, effect points, etc.).\n2. Run the script.\n3. Each property's value is replaced with an expression returning that same (rounded) number.",
+      "timelineCreation": "Replaces property values with fixed expressions: multidimensional (e.g. position) becomes value = [x, y]; single values become value = n;.",
+      "limitations": "Only works on properties that accept expressions (canSetExpression = true). If you select something that doesn't support it, it's skipped. Does not add keyframes, only replaces with a constant value via expression.",
+      "typicalUses": "Locking animated positions/opacities at a point that works better for you to modify them later"
+    },
+    "es": {
+      "name": "Freeze Property",
+      "description": "“Congela” propiedades seleccionadas convirtiendo su valor actual en una expresión fija, redondeada a dos decimales. Así puedes bloquear posiciones animadas, escalas, opacidades, etc., de forma limpia sin tener que escribir keyframes.",
+      "instructions": "Selecciona en tu comp las propiedades que quieras congelar (posición, escala, rotación, opacidad, puntos de efecto…) y ejecuta el script. Sustituirá su valor por una expresión que devuelve ese mismo número (ya redondeado).",
+      "timelineCreation": "En cada propiedad añade una expresión simple:\n\n- Si es multidimensional (ej. posición), `value = [x, y];` con valores redondeados.\n- Si es un valor único, `value = n;`.\n- Además muestra un resumen de cuántas propiedades procesó y cuántas no pudo tocar.",
+      "limitations": "Solo funciona en propiedades que aceptan expresiones (`canSetExpression = true`). Si seleccionas algo que no admite, lo salta. No añade keyframes, solo reemplaza por un valor constante vía expresión.",
+      "typicalUses": "Bloquear posiciones/opacidades animadas en un sitio que nos venga mejor para modificarlas."
+    },
+    "categories": [
+      "After Effects",
+      "Utility",
+      "Timeline"
+    ]
+  },
+  {
+    "id": "move-and-trim",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/07h4tmamqm9jnv1tgnh1s/MoveAndTrim.jsx?rlkey=jyzuzzh3gu7afrodp06p5uxr5&dl=1",
+    "en": {
+      "name": "Move And Trim",
+      "description": "Automatically adjusts selected layers so they align in time with the layer just below: moves their start to match and trims their duration to end at the same time.",
+      "instructions": "1. Select one or more layers in your comp.\n2. Run the script.\n3. Each layer is moved and trimmed taking the layer immediately below as the reference.",
+      "timelineCreation": "Modifies startTime and outPoint of selected layers based on the layer below. Does not create new elements.",
+      "limitations": "Only works if there is a layer below (does not apply to the last layer of the comp). May overlap or shift layers if they already had keyframes outside the range.",
+      "typicalUses": "Very useful for assembling layers in sequence, synchronizing assets with placeholders, or quickly adjusting multiple elements to follow the timing of a reference"
+    },
+    "es": {
+      "name": "Move And Trim",
+      "description": "Ajusta automáticamente las capas seleccionadas para que se alineen en el tiempo con la capa justo debajo: mueve su inicio para que coincida y recorta su duración para que termine al mismo tiempo.",
+      "instructions": "Selecciona una o varias capas en tu comp y ejecuta el script. Cada capa se moverá y recortará tomando como referencia la capa inmediatamente inferior en la pila.",
+      "timelineCreation": "Modifica `startTime` y `outPoint` de las capas seleccionadas, basándose en los valores de la capa inferior. No crea nada nuevo, solo ajusta tiempo y duración.",
+      "limitations": "Funciona solo si existe una capa debajo (no aplica a la última capa del comp). Puede solapar o desplazar capas si ya tenían keyframes fuera del rango.",
+      "typicalUses": "Muy útil para montar capas en secuencia, sincronizar assets con placeholders o ajustar rápidamente varios elementos para que sigan el timing de una referencia."
+    },
+    "categories": [
+      "After Effects",
+      "Timeline",
+      "Utility"
+    ]
+  },
+  {
+    "id": "marker-batch-render",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/up7vf3fg47lz56c7vc3ig/MarkerBatchRender.jsx?rlkey=nwr0tv4x3u3e6qe0dbigg2pxl&dl=1",
+    "en": {
+      "name": "Marker Batch Render",
+      "description": "Adds segments of your composition to the Render Queue based on composition markers. Segments are defined from one marker to the next (or end of comp), with output filenames taken from the marker comments.",
+      "instructions": "1. Run the script to open the panel.\n2. Enter or browse for the output folder path.\n3. Click 'Add to Render Queue'.\n4. Each segment between markers will be added as a separate render item with its comment as the file name.",
+      "timelineCreation": "Adds render items directly to the After Effects Render Queue. Does not modify composition layers.",
+      "limitations": "Requires active composition markers. The output directory must already exist on your disk.",
+      "typicalUses": "Batch rendering multiple social media formats, versions, or shots from a single composition timeline using marker flags."
+    },
+    "es": {
+      "name": "Renderizado por Marcadores",
+      "description": "Añade segmentos de la composición activa a la Cola de Render (Render Queue) basándose en los marcadores de la composición. Los segmentos van desde un marcador al siguiente, usando los comentarios de los marcadores como nombre de archivo.",
+      "instructions": "1. Ejecuta el script.\n2. Escribe o selecciona la ruta de la carpeta de salida.\n3. Haz clic en 'Add to Render Queue'.\n4. Cada tramo entre marcadores se añadirá a la cola de renderizado con su comentario correspondiente como nombre de archivo.",
+      "timelineCreation": "Genera ítems de renderizado directamente en la cola de render (Render Queue). No añade elementos a la composición.",
+      "limitations": "La composición debe tener marcadores activos. La carpeta de destino debe existir previamente en el disco.",
+      "typicalUses": "Exportar múltiples planos, variaciones o formatos para redes sociales desde una única línea de tiempo usando marcadores como delimitadores."
+    },
+    "categories": [
+      "After Effects",
+      "Utility",
+      "Timeline",
+      "Extension"
+    ]
+  },
+  {
+    "id": "marker-copy-paste",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/zznenll3b13vp15yv34n9/MarkerCopyPaste.jsx?rlkey=j4s9jkp4f4eoux1ns2i4qyf7u&dl=1",
+    "en": {
+      "name": "Marker Copy-Paste",
+      "description": "A utility panel to copy composition or layer markers and paste them onto other targets. Includes functions to batch rename markers (search & replace comments) and sync composition markers down to precompositions.",
+      "instructions": "1. Run the script.\n2. To copy: select a layer (for layer markers) or nothing (for comp markers) and click 'Copy Markers'.\n3. To paste: select target layers (or nothing for comp) and click 'Paste Markers' (optionally replacing or appending).\n4. To rename: enter Search/Replace terms in the panel and click 'Rename Comp Markers' or 'Rename Layer Markers'.",
+      "timelineCreation": "Copies, pastes, or renames markers on layers or compositions. No visual layer assets are created.",
+      "limitations": "Pasting to precomps shifts markers relative to the layer's start time. Copying retrieves all markers at once.",
+      "typicalUses": "Migrating storyboard markers, translations, or notes between compositions and layers, and batch-editing feedback comments on markers."
+    },
+    "es": {
+      "name": "Copiar y Pegar Marcadores",
+      "description": "Un panel de utilidad para copiar marcadores de composición o capa y pegarlos en otros objetivos. Incluye funciones para renombrar marcadores en lote (buscar y reemplazar comentarios) y sincronizar marcadores de composición a precomposiciones.",
+      "instructions": "1. Ejecuta el script.\n2. Copiar: Selecciona una capa (para marcadores de capa) o nada (para marcadores de composición) y pulsa 'Copy Markers'.\n3. Pegar: Selecciona las capas destino (o nada para comp) y pulsa 'Paste Markers' (puedes elegir entre reemplazar o añadir).\n4. Renombrar: Introduce los términos de búsqueda/reemplazo y pulsa 'Rename Comp Markers' o 'Rename Layer Markers'.",
+      "timelineCreation": "Copia, pega o renombra marcadores existentes. No genera capas ni elementos visuales en el timeline.",
+      "limitations": "Sincronizar a precomposición ajusta los tiempos de los marcadores según el startTime de la capa.",
+      "typicalUses": "Migrar marcadores de estructura o notas de feedback entre capas o composiciones, y corregir nombres o comentarios de marcadores en lote."
+    },
+    "categories": [
+      "After Effects",
+      "Utility",
+      "Timeline",
+      "Extension"
+    ]
+  },
+  {
+    "id": "null-group",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/sosql103z38jichzmcks1/NullGroup.jsx?rlkey=s8g1d2wjvq1wzhpq61vh3akd1&dl=1",
+    "en": {
+      "name": "Null Group",
+      "description": "Creates a null at the average center of the selected layers (only those without a parent), adjusts its duration to cover from the earliest start to the latest end of those layers, and then parents them to the null.",
+      "instructions": "1. Select multiple layers in your comp.\n2. Run the script.\n3. A null automatically appears at the center of all of them, with synchronized duration, and the layers become children.",
+      "timelineCreation": "Generates a new null layer, calculates average position and time range (in/out), and reassigns the hierarchy of selected layers to that null.",
+      "limitations": "Ignores layers that already have a parent. If all are parented, it does nothing. Works in 2D and 3D (also sums Z if it exists).",
+      "typicalUses": "Quickly grouping multiple layers to move or animate them together, creating a centralized control for a group, or keeping a rig organized without needing to pre-compose"
+    },
+    "es": {
+      "name": "Null Group",
+      "description": "Crea un *null* en el centro promedio de las capas seleccionadas (solo las que no tienen padre), ajusta su duración para cubrir desde el inicio más temprano hasta el final más tarde de esas capas, y luego las emparenta al null.",
+      "instructions": "Selecciona varias capas en tu comp y ejecuta el script. Automáticamente aparecerá un null en el centro de todas, con la duración sincronizada, y las capas quedarán vinculadas como hijos.",
+      "timelineCreation": "Genera un nuevo null, calcula posición media (`averagePosition`) y rango de tiempo (in/out), y reasigna la jerarquía de las capas seleccionadas a ese null.",
+      "limitations": "Ignora capas que ya tienen padre. Si todas están parentadas, no hará nada. Funciona en 2D y 3D (suma también la Z si existe).",
+      "typicalUses": "Agrupar rápidamente varias capas para moverlas o animarlas juntas, crear un control centralizado para un grupo, o mantener organizado un rig sin necesidad de precomponer."
+    },
+    "categories": [
+      "After Effects",
+      "Rigging",
+      "Timeline"
+    ]
+  },
+  {
+    "id": "puppet-pin-null-creator",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/b0t7bz9kyo7xdu5lrlf8u/PupperPin_NullCreator.jsx?rlkey=7518l66okrvn1wr1h02fff0nc&dl=1",
+    "en": {
+      "name": "PuppetPin Null Creator",
+      "description": "Creates a null for each Puppet Pin on the mesh of the selected layer, places them on each pin, gives them the same in/out range as the layer, and chains the nulls in hierarchy (each new null parents to the previous) to facilitate articulated rigs; additionally, applies an expression to each pin so it follows the corresponding null.",
+      "instructions": "1. Select the layer with Puppet in your comp and run the script.\n2. It detects all meshes (Puppet > arap > Mesh > Deform) and generates the nulls automatically with names 'LayerName [MeshName] [PinName]', already linked via expression and ready to animate.",
+      "timelineCreation": "Adds null layers (50% scale, shy enabled, anchor 50/50) chained in hierarchy. Sets pin.position.expression to 'p=thisComp.layer(\"NullName\").transform.position; fromComp(p.toComp(p.anchorPoint));' to convert comp↔layer coordinates.",
+      "limitations": "Operates only on the first selected layer with Puppet; the chaining is strictly sequential (last pin to first by loop order); renaming a null breaks its link in the expression; designed for Puppet 2D (FreePin3/ARAP) on standard property paths.",
+      "typicalUses": "Quick limb and face rigs: move nulls to pose pins with clean control, create influence chains (bone→sub-bone), and prepare animation setups where you need tangible handles on timeline instead of manipulating pins directly"
+    },
+    "es": {
+      "name": "PuppetPin Null Creator",
+      "description": "Crea un *null* por cada **Puppet Pin** de la malla en la capa seleccionada, los coloca sobre cada pin, les da el mismo rango de in/out que la capa y **encadena los nulls en jerarquía** (cada nuevo null se parenta al anterior) para facilitar rigs articulados; además, a cada pin le aplica una expresión para que siga al null correspondiente.",
+      "instructions": "Selecciona la **capa con Puppet** en tu comp y ejecuta el script; detecta todas las mallas (`Puppet > arap > Mesh > Deform`) y genera los nulls automáticamente con nombres `\"\\[NombreCapa\\] [NombreMalla] [NombrePin]\"`, ya vinculados por expresión y listos para animar.",
+      "timelineCreation": "Añade nulls (escala 50%, *shy* activado, ancla 50/50) parentados en cadena y ajusta `pin.position.expression` a `p=thisComp.layer(\"NombreNull\"); fromComp(p.toComp(p.anchorPoint));` para convertir coordenadas comp↔capa y hacer que el pin siga al null.",
+      "limitations": "Opera solo sobre la **primera capa seleccionada** con Puppet; el encadenado es estrictamente secuencial (del último pin al primero por el orden del bucle), renombrar un null rompe su vínculo en la expresión, y está pensado para Puppet **2D (FreePin3/ARAP)** en rutas de propiedades estándar.",
+      "typicalUses": "Rig rápido de extremidades y caras: mover nulls para posar pins con control limpio, crear cadenas de influencia (hueso→subhueso), y preparar setups de animación donde necesites *handles* tangibles en timeline en lugar de manipular directamente los pins."
+    },
+    "categories": [
+      "After Effects",
+      "Rigging",
+      "Timeline"
+    ]
+  },
+  {
+    "id": "project-folder-helper",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/3wkq2txzutj41ct9ntuf5/ProjectFolderHelper.jsx?rlkey=ngv760vybpmkkoj08rben8u1e&dl=1",
+    "en": {
+      "name": "Project Folder Helper",
+      "description": "Lets you 'clone' the organization of your Project panel. You can export your entire current folder hierarchy to a plain text file (.txt) and then import it in any new project to recreate that same structure, maintaining the order of folders and subfolders.",
+      "instructions": "1. Run the script from the File > Scripts menu.\n2. If you have a structure you like, click 'Export Structure (.txt)' to save it.\n3. In a new project, click 'Import Structure (.txt)' and select that file; the script will build the entire folder tree for you.",
+      "timelineCreation": "Generates Folder-type elements in the Project panel. Uses a text path system (e.g. '04_VIDEO/FOOTAGE') to detect which folders go inside others and organize them exactly as in the original, regardless of depth.",
+      "limitations": "Only recreates the folder structure (the 'skeleton' of the project). Does not export or import files, compositions, or footage. If you edit the .txt file manually, ensure you maintain the slash-separated name format so the script doesn't get lost.",
+      "typicalUses": "Standardizing workflow in a team so everyone uses the same nomenclature, setting up new projects in seconds without creating folders by hand, saving different organization templates depending on the type of work (e.g. one for Social Media and another for VFX)"
+    },
+    "es": {
+      "name": "Project Folder Helper",
+      "description": "El script te permite \"clonar\" la organización de tu ventana de Proyecto. Puedes exportar toda tu jerarquía de carpetas actual a un archivo de texto simple (.txt) y luego importarlo en cualquier proyecto nuevo para recrear esa misma estructura automáticamente, manteniendo el orden de carpetas y subcarpetas.",
+      "instructions": "Ejecuta el script desde el menú *File > Scripts*. Si ya tienes una estructura que te gusta, pulsa **\"Export Structure (.txt)\"** para guardarla. En un proyecto nuevo, pulsa **\"Import Structure (.txt)\"** y selecciona ese archivo; el script se encargará de construir todo el árbol de carpetas por ti en un segundo.",
+      "timelineCreation": "Genera elementos de tipo \"Folder\" en la ventana de Proyecto. El script utiliza un sistema de rutas de texto (por ejemplo: `04_VIDEO/FOOTAGE`), lo que significa que detecta qué carpetas van dentro de otras y las organiza exactamente como estaban en el original, sin importar cuántos niveles de profundidad tengan.",
+      "limitations": "Solo recrea la **estructura de carpetas** (el \"esqueleto\" del proyecto). No exporta ni importa los archivos, composiciones o material de archivo (footage) que haya dentro. Además, si decides editar el archivo .txt a mano, asegúrate de mantener el formato de nombres separados por barras `/` para que el script no se pierda.",
+      "typicalUses": "Estandarizar el flujo de trabajo en un equipo para que todos usen la misma nomenclatura, configurar proyectos nuevos en segundos sin tener que crear carpetas a mano (\"GYST\"), o guardar diferentes plantillas de organización según el tipo de trabajo (ej. una para Redes Sociales y otra para VFX)."
+    },
+    "categories": [
+      "After Effects",
+      "Utility",
+      "Extension"
+    ]
+  },
+  {
+    "id": "simple-parent",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/54oae1yw27u7kdp4wx50t/SimpleParent.jsx?rlkey=fyy26lcg6n7vvpyr7tfcchjqd&dl=1",
+    "en": {
+      "name": "Simple Parent",
+      "description": "Parents all selected layers to the last layer in the selection. This way you can quickly choose a 'parent' without going layer by layer to the Parent & Link menu.",
+      "instructions": "1. Select at least two layers in the comp (the last one you mark will be the parent).\n2. Run the script.\n3. All other selected layers become children of that one.",
+      "timelineCreation": "Does not create anything new: only assigns the parent property of each selected layer to the last layer in the selection.",
+      "limitations": "Needs a minimum of two layers; if you select only one or none, it does nothing. Does not differentiate between 2D/3D layers nor preserves offsets, simply parents directly.",
+      "typicalUses": "Organizing quick hierarchies (e.g. multiple elements to a control null), saving time in rigs, or linking multiple assets to a camera/light/guide layer with one click"
+    },
+    "es": {
+      "name": "Simple Parent",
+      "description": "Emparenta todas las capas seleccionadas al último layer de la selección. De esta forma puedes elegir rápidamente un “padre” sin ir capa por capa al menú de *Parent & Link*.",
+      "instructions": "Selecciona al menos dos capas en la comp (la última que marques será el padre) y ejecuta el script. Todas las demás capas seleccionadas quedarán vinculadas a esa.",
+      "timelineCreation": "No crea nada nuevo: solo asigna la propiedad `parent` de cada capa seleccionada al último layer de la selección.",
+      "limitations": "Necesita mínimo dos capas; si seleccionas solo una o ninguna, no hace nada. No diferencia entre capas 2D/3D ni preserva offsets, simplemente parenta directo.",
+      "typicalUses": "Organizar jerarquías rápidas (p. ej. varios elementos a un null de control), ahorrar tiempo en rigs, o vincular varios assets a una cámara/luz/capa guía con un clic."
+    },
+    "categories": [
+      "After Effects",
+      "Rigging",
+      "Timeline"
+    ]
+  },
+  {
+    "id": "simple-parent-unparented",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/2wqc1udgk6lwmf35xfenn/SimpleParent_Unparented.jsx?rlkey=gpg56z1fbjvy1b7midcs3uu5o&dl=1",
+    "en": {
+      "name": "Simple Parent (Unparented Only)",
+      "description": "Parents selected layers to the last selected layer, but only if they do not already have an assigned parent. This protects existing parent-child hierarchies from being broken.",
+      "instructions": "1. Select multiple layers in your composition (the last selected layer will act as the parent).\n2. Run the script.\n3. Layers that had no parent are linked to the target layer. Layers that already had a parent remain unchanged.",
+      "timelineCreation": "Does not create any layers; reassigns the parent property of selected layers in the timeline.",
+      "limitations": "Requires at least two selected layers. Does not affect layers that already have a parent.",
+      "typicalUses": "Quickly grouping unparented layers under a control null without disrupting custom rigging elsewhere on the timeline."
+    },
+    "es": {
+      "name": "Simple Parent (Solo sin padre)",
+      "description": "Emparenta las capas seleccionadas al último layer de la selección, pero solo si no tienen ya un padre asignado. Esto protege las jerarquías ya existentes para que no se rompan.",
+      "instructions": "1. Selecciona varias capas en la composición (la última capa seleccionada actuará como el padre).\n2. Ejecuta el script.\n3. Las capas que no tenían padre se vincularán al layer de destino. Las que ya tenían padre no sufrirán cambios.",
+      "timelineCreation": "No crea nuevos elementos; reasigna la propiedad de padre (Parent) de las capas seleccionadas.",
+      "limitations": "Requiere al menos dos capas seleccionadas. No afecta a las capas que ya tienen un padre asignado.",
+      "typicalUses": "Vincular rápidamente capas sueltas a un null de control sin romper estructuras de rig personalizadas en la línea de tiempo."
+    },
+    "categories": [
+      "After Effects",
+      "Rigging",
+      "Timeline"
+    ]
+  },
+  {
+    "id": "sync-shy-layers",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/f55nm7467x3ssee53yy02/SyncShyLayers.jsx?rlkey=a535l182mioylpanhn76qydax&dl=1",
+    "en": {
+      "name": "Sync Shy Layers",
+      "description": "A dockable utility panel that synchronizes the 'shy' visibility status of layers from a source composition to one or more target compositions. Layers are matched across compositions by name.",
+      "instructions": "1. Open or select at least two compositions in the Project panel.\n2. Run the script to open the panel.\n3. Choose your 'Source' composition in the dropdown.\n4. Click 'Sync to All Targets' to synchronize the shy status of layers matching by name.",
+      "timelineCreation": "Modifies the shy property of matching layers in the target compositions. Does not create new elements.",
+      "limitations": "Layers must have matching names to be synchronized. Requires at least two compositions selected in the Project panel.",
+      "typicalUses": "Keeping multiple versions or precompositions clean and synchronized in large projects, locking down visibility structures across complex compositions."
+    },
+    "es": {
+      "name": "Sincronizar Capas Shy",
+      "description": "Un panel dockable que sincroniza el estado de visibilidad 'shy' (oculto) de las capas desde una composición de origen a múltiples composiciones de destino, haciendo coincidir las capas por su nombre.",
+      "instructions": "1. Abre o selecciona al menos dos composiciones en el panel de Proyecto.\n2. Ejecuta el script para abrir el panel.\n3. Elige la composición 'Origen' en el menú desplegable.\n4. Haz clic en 'Sync to All Targets' para aplicar el estado de ocultación a las capas de destino con el mismo nombre.",
+      "timelineCreation": "Modifica la propiedad shy de las capas correspondientes en las composiciones de destino. No crea elementos nuevos.",
+      "limitations": "Las capas deben llamarse exactamente igual para sincronizarse. Requiere tener al menos dos composiciones seleccionadas en el panel de Proyecto.",
+      "typicalUses": "Mantener ordenadas y sincronizadas múltiples versiones o precomposiciones de un proyecto pesado, asegurando la misma visibilidad de capas de control en todas ellas."
+    },
+    "categories": [
+      "After Effects",
+      "Utility",
+      "Timeline"
+    ]
+  },
+  {
+    "id": "trim-to-keys",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/l8xll9htuzofseoxrig6r/TrimToKeys.jsx?rlkey=5axv307jbxk84ta4y9qdfvqfn&dl=1",
+    "en": {
+      "name": "Trim To Keys",
+      "description": "Automatically trims selected layers so their duration goes from the first to the last keyframe they contain, removing extra time at the start and end.",
+      "instructions": "1. Select one or more layers in your comp.\n2. Run the script.\n3. It analyzes all their parameters and adjusts inPoint and outPoint of each layer based on the earliest and latest keyframes.",
+      "timelineCreation": "Does not create anything new: only modifies the entry and exit of layers to match the range of their animations.",
+      "limitations": "If a layer has no keyframes, it is not trimmed. Does not distinguish between locked properties or effects without keyframes.",
+      "typicalUses": "Comp cleanup, automatically trimming animated assets, preparing optimized precomps, or eliminating empty stretches in long timelines"
+    },
+    "es": {
+      "name": "Trim To Keys",
+      "description": "Recorta automáticamente las capas seleccionadas para que su duración vaya desde el primer hasta el último keyframe que contengan, quitando tiempo sobrante al inicio y al final.",
+      "instructions": "Selecciona una o varias capas en tu comp y ejecuta el script. Analiza todos sus parámetros y ajusta `inPoint` y `outPoint` de cada capa según los keyframes más temprano y más tardío.",
+      "timelineCreation": "No crea nada nuevo: solo modifica la entrada y salida de las capas para que coincidan con el rango de sus animaciones.",
+      "limitations": "Si una capa no tiene keyframes, no se recorta. No distingue propiedades bloqueadas ni efectos expresados sin keyframes.",
+      "typicalUses": "Limpieza de comps, recortar automáticamente assets animados, preparar precomps optimizadas o eliminar tramos vacíos en timelines largos."
+    },
+    "categories": [
+      "After Effects",
+      "Timeline",
+      "Utility"
+    ]
+  },
+  {
+    "id": "zen-ease",
+    "version": "1.2.3",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/675sswocf4zafqwyfecpy/zen-ease_v1.2.3.zxp?rlkey=hhjwrmhkmyw5ny9mzzg20mmg3&dl=1",
+    "en": {
+      "name": "Zen Ease",
+      "description": "A premium cubic Bezier curve editor extension for After Effects. It allows custom easing handle adjustments in a web canvas interface and applies calculated speed and influence coordinates directly to selected keyframes, with shape, color, and curved spatial path estimations.",
+      "instructions": "1. Install the extension using a ZXP manager (e.g. ZXP Installer or Anastasiy's Extension Manager).\n2. Open After Effects and go to Window > Extensions > Zen Ease.\n3. Adjust the Bezier curves in the editor canvas, or select a preset from the library tab.\n4. Click 'Apply to AE' to ease selected keyframes, or 'Get from AE' to load easing curves from existing keyframes.",
+      "timelineCreation": "Applies spatial and temporal keyframe easing adjustments directly to active keyframes. No new elements are created.",
+      "limitations": "Requires enabling scripting file writes in preferences (Preferences > Scripting & Expressions > Allow Scripts to Write Files). Works with Bezier keyframe types.",
+      "typicalUses": "Crafting smooth, organic motions, animating complex rigs with custom easing templates, and saving/loading personal easing presets."
+    },
+    "es": {
+      "name": "Zen Ease",
+      "description": "Una extensión premium de edición de curvas Bezier cúbicas para After Effects. Permite ajustar controladores de aceleración en un lienzo visual y aplicar velocidades e influencias calculadas directamente a los fotogramas clave seleccionados, adaptándose a color, formas y trayectorias espaciales.",
+      "instructions": "1. Instala el paquete ZXP utilizando un gestor de extensiones (como ZXP Installer o Anastasiy's Extension Manager).\n2. Abre After Effects y ve a Ventana > Extensiones > Zen Ease.\n3. Ajusta las curvas Bezier en el panel de edición, o elige un ajuste preestablecido (preset) de la pestaña de biblioteca.\n4. Haz clic en 'Apply to AE' para aplicar aceleraciones a tus fotogramas clave, o 'Get from AE' para cargar la curva de fotogramas clave seleccionados.",
+      "timelineCreation": "Aplica aceleraciones espaciales y temporales a los fotogramas clave seleccionados. No genera nuevas capas ni objetos.",
+      "limitations": "Requiere tener activa la casilla 'Permitir a las secuencias de comandos escribir archivos y acceder a la red' en las preferencias de After Effects. Funciona con fotogramas clave de tipo Bezier.",
+      "typicalUses": "Crear movimientos fluidos y orgánicos, animar rigs complejos con plantillas de aceleración y guardar/compartir bibliotecas de presets personalizados."
+    },
+    "categories": [
+      "After Effects",
+      "Extension"
+    ]
+  },
+  {
+    "id": "renombrator-illustrator",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/9jg75rgbjfwtju6k0to7q/Renombrator_AI.jsx?rlkey=joy9kr305ob20w4xjzk48pz83&dl=1",
+    "en": {
+      "name": "Renombrator (Illustrator)",
+      "description": "Opens a dialog that allows renaming all artboards of the active document in sequence, with prefix, starting number, and option to pad with leading zeros.",
+      "instructions": "1. Run the script with an open document.\n2. In the window adjust the prefix, starting number, and whether you want leading zeros (with the number of digits).\n3. The preview shows how the names will look.\n4. Click 'Rename' and all artboards will be renamed consecutively.",
+      "timelineCreation": "Modifies the names of all artboards in the document. For example, with prefix 'Mesa_', starting number '1' and 3 digits, it generates 'Mesa_001', 'Mesa_002', 'Mesa_003', etc.",
+      "limitations": "Only affects the active document and all its artboards (does not allow selecting some). Problematic characters in the prefix are replaced by underscores.",
+      "typicalUses": "Organizing artboards for batch export, preparing numbered sequences of assets, maintaining clear order in large projects, or facilitating workflows with After Effects or other programs that depend on ordered names"
+    },
+    "es": {
+      "name": "Renombrator",
+      "description": "Abre un cuadro de diálogo que permite renombrar todas las mesas de trabajo del documento activo en secuencia, con prefijo, número inicial y opción de rellenar con ceros.",
+      "instructions": "Ejecuta el script con un documento abierto. Ajusta en la ventana el **prefijo**, el **número inicial** y si quieres **ceros a la izquierda** (con la cantidad de dígitos). La vista previa muestra cómo quedarán los nombres. Pulsa **Renombrar** y todas las mesas se renombrarán de forma consecutiva.",
+      "timelineCreation": "Modifica los nombres de todas las mesas de trabajo en el documento. Por ejemplo, con prefijo `Mesa_`, número inicial `1` y 3 dígitos, se generan `Mesa_001`, `Mesa_002`, `Mesa_003`, etc.",
+      "limitations": "Solo afecta al documento activo y a todas sus mesas (no permite seleccionar algunas). Los caracteres problemáticos en el prefijo se sustituyen por guiones bajos `_`.",
+      "typicalUses": "Organizar mesas de trabajo para exportación masiva, preparar secuencias numeradas de assets, mantener orden claro en proyectos grandes o facilitar flujos con After Effects u otros programas que dependen de nombres ordenados."
+    },
+    "categories": [
+      "Illustrator",
+      "Utility",
+      "Extension"
+    ]
+  },
+  {
+    "id": "sort-layers-left-to-right",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/uvvaefw5rz1gycpnnd3q5/Sort_Layers_LeftToRight.jsx?rlkey=mqgp4f54mhvoqevjfm1xrktpa&dl=1",
+    "en": {
+      "name": "Sort Layers Left to Right (Illustrator)",
+      "description": "Orders all objects in the active layer from left to right, and if two share the same X position, from top to bottom. At the end it changes their stacking order (z-order) in the layer panel to reflect that order.",
+      "instructions": "1. Select the layer where you have the objects you want to order and run the script.\n2. It shows how many elements it found, then automatically reorders them.\n3. You don't need to select the objects; the script uses all elements of the active layer.",
+      "timelineCreation": "Does not generate new elements: simply changes the order in the layer panel. Uses the left coordinate as X reference and top as Y reference. For lines (PathItem with 2 points) calculates the center so the order is more logical.",
+      "limitations": "Affects only objects in the active layer. Does not discriminate by groups or sublayers: everything in the layer is included. 'top' in Illustrator increases downward, so the calculation is inverted to order correctly from top to bottom.",
+      "typicalUses": "Preparing layers for exporting ordered sequences, organizing elements before renaming or numbering, or having the logical reading order (left to right, top to bottom) when generating assets for animation or development"
+    },
+    "es": {
+      "name": "Sort Layers Left to right",
+      "description": "Ordena todos los objetos de la capa activa de izquierda a derecha, y si dos comparten la misma posición en X, de arriba hacia abajo. Al final cambia su orden de apilado (*z-order*) en la capa para reflejar ese orden.",
+      "instructions": "Selecciona la capa donde tengas los objetos que quieres ordenar y ejecuta el script. Te mostrará cuántos elementos encontró, luego los reordena automáticamente. No necesitas seleccionar los objetos, el script usa **todos los elementos de la capa activa**.",
+      "timelineCreation": "No genera elementos nuevos: simplemente cambia el orden en el panel de capas. Usa la coordenada `left` como referencia de X y `top` como referencia de Y. Para líneas (PathItem con 2 puntos) calcula el centro para que el orden sea más lógico.",
+      "limitations": "Afecta solo a objetos en la **capa activa**. No discrimina por grupos o subcapas: todo lo que haya en la capa se incluye. Y ten en cuenta que “top” en Illustrator aumenta hacia abajo, por eso el cálculo se invierte para ordenar correctamente de arriba a abajo.",
+      "typicalUses": "Preparar capas para exportar secuencias en orden visual, organizar elementos antes de renombrar o numerar, o tener el orden lógico de lectura (de izquierda a derecha, arriba abajo) al generar assets para animación o desarrollo."
+    },
+    "categories": [
+      "Illustrator",
+      "Utility"
+    ]
+  },
+  {
+    "id": "sort-layers-reading-order",
+    "version": "1.0",
+    "downloadUrl": "https://www.dropbox.com/scl/fi/atv1mwizhj4ept8qnnmpy/Sort_Layers_ReadingOrder.jsx?rlkey=twvomxaf82mfn0sw5f7jym5xe&dl=1",
+    "en": {
+      "name": "Sort Layers Reading Order (Illustrator)",
+      "description": "Orders the objects of the active layer following a more natural reading order: from top to bottom, and within each 'line' (by Y proximity) from right to left. This simulates how you would traverse text or elements in blocks.",
+      "instructions": "1. Activate the layer you want to order and run the script.\n2. It detects all objects, calculates their center, organizes them by the reading logic (lines and columns), and reorders their position in the layer panel.",
+      "timelineCreation": "Does not create anything new, only reorders objects. Uses the center of each object to calculate position. If two objects are on the same 'line' (Y difference less than epsilon = 50 px), then decides order using X.",
+      "limitations": "The tolerance range (epsilon) defines what is considered the same 'line': if too low, aligned objects may fall into different rows; if too high, multiple levels may merge. Only works on the active layer, without distinguishing sublayers.",
+      "typicalUses": "Ideal for ordering items as if they were paragraphs or grids: icons, checkboxes, numbers or letters that should follow a coherent reading order (top–bottom, right–left). Very useful before exporting sequences or preparing material for motion"
+    },
+    "es": {
+      "name": "Sort Layers Reading Order",
+      "description": "Ordena los objetos de la capa activa siguiendo un orden de lectura más natural: de arriba a abajo, y dentro de cada “línea” (según cercanía en Y) de derecha a izquierda. Esto simula cómo recorrerías texto o elementos en bloques.",
+      "instructions": "Activa la capa que quieras ordenar y ejecuta el script. Detecta todos los objetos, calcula su centro, los organiza según la lógica de lectura (líneas y columnas) y reordena su posición en el panel de capas.",
+      "timelineCreation": "No crea nada nuevo, solo reordena los objetos. Usa el centro de cada objeto para calcular la posición. Si dos objetos están en la misma “línea” (diferencia en Y menor a `epsilon` = 50 px), entonces decide el orden usando X.",
+      "limitations": "El rango de tolerancia (`epsilon`) define qué se considera “misma línea”: si es muy bajo, objetos alineados pueden caer en distintas filas; si es muy alto, varios niveles pueden mezclarse. Funciona solo en la capa activa, sin distinguir subcapas.",
+      "typicalUses": "Ideal para ordenar ítems como si fueran párrafos o grids: iconos, casillas, números o letras que deban seguir un orden de lectura coherente (arriba–abajo, derecha–izquierda). Muy útil antes de exportar secuencias o preparar material para motion."
+    },
+    "categories": [
+      "Illustrator",
+      "Utility"
+    ]
+  }
+]

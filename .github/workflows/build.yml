@@ -1,0 +1,22 @@
+name: Build y pruebas
+on: [push, pull_request]
+jobs:
+  galeria:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scripts-gallery
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml
+      - name: Validar fichas
+        run: python3 build.py --comprobar
+      - name: Generar dist/
+        run: python3 build.py
+      - name: Equivalencia con el catálogo publicado
+        run: python3 pruebas/equivalencia.py
+      - name: Un programa nuevo entra solo
+        run: python3 pruebas/nuevo-programa.py
