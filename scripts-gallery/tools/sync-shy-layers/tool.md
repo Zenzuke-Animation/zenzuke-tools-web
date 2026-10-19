@@ -9,7 +9,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/f55nm7467x3ssee53yy02/SyncShyLayers.jsx?rlkey=a535l182mioylpanhn76qydax&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/SyncShyLayers.jsx
 page: null
 en:
   name: Sync Shy Layers

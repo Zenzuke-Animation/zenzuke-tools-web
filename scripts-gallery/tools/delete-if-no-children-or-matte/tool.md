@@ -9,7 +9,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/4eu4d2jfyotz5r9pn4tz9/DeleteIfNoChildrenOrMatte.jsx?rlkey=b7nyy38duv1r20cfcr5tju9dx&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/DeleteIfNoChildrenOrMatte.jsx
 page: null
 en:
   name: Delete If No Children Or Matte

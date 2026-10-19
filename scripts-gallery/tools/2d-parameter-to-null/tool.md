@@ -9,7 +9,7 @@ version: '1.0'
 status: deprecated
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/adw07r94tsyqz414imq76/2DPrameterToNull.jsx?rlkey=jkwjy3i6euaz643cp0fhcrlkj&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/2DPrameterToNull.jsx
 page: null
 en:
   name: 2D Parameter to Null

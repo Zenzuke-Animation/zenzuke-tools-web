@@ -8,7 +8,7 @@ version: 1.2.3
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/675sswocf4zafqwyfecpy/zen-ease_v1.2.3.zxp?rlkey=hhjwrmhkmyw5ny9mzzg20mmg3&dl=1
+download: https://github.com/Zenzuke-Animation/zen-ease/releases/latest/download/zen-ease_v1.2.3.zxp
 page: zen-ease/index.html
 en:
   name: Zen Ease

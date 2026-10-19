@@ -9,7 +9,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/54oae1yw27u7kdp4wx50t/SimpleParent.jsx?rlkey=fyy26lcg6n7vvpyr7tfcchjqd&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/SimpleParent.jsx
 page: null
 en:
   name: Simple Parent

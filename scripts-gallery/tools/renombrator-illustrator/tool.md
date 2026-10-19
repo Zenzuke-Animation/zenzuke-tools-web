@@ -8,7 +8,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/9jg75rgbjfwtju6k0to7q/Renombrator_AI.jsx?rlkey=joy9kr305ob20w4xjzk48pz83&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/Renombrator_AI.jsx
 page: null
 en:
   name: Renombrator (Illustrator)

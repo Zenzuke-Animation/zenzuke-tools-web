@@ -9,7 +9,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/q7v28brcm31fcvej1uio4/DissolveParent.jsx?rlkey=u7q9lxu7lobtv1y3xq229ikj9&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/DissolveParent.jsx
 page: null
 en:
   name: Dissolve Parent

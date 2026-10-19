@@ -9,7 +9,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/07h4tmamqm9jnv1tgnh1s/MoveAndTrim.jsx?rlkey=jyzuzzh3gu7afrodp06p5uxr5&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/MoveAndTrim.jsx
 page: null
 en:
   name: Move And Trim

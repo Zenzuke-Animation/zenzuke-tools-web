@@ -8,7 +8,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/3wkq2txzutj41ct9ntuf5/ProjectFolderHelper.jsx?rlkey=ngv760vybpmkkoj08rben8u1e&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/ProjectFolderHelper.jsx
 page: null
 en:
   name: Project Folder Helper

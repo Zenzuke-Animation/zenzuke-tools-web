@@ -2,7 +2,7 @@
   {
     "id": "2d-parameter-to-null",
     "version": "_Deprecated",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/adw07r94tsyqz414imq76/2DPrameterToNull.jsx?rlkey=jkwjy3i6euaz643cp0fhcrlkj&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/2DPrameterToNull.jsx",
     "en": {
       "name": "2D Parameter to Null",
       "description": "Creates a null for each 2D (x,y) property of selected effects in your composition. The null is placed at the current position of the point and the property is linked to it via expression, so you can animate or move it from the null in the comp.",
@@ -28,7 +28,7 @@
   {
     "id": "create-face-rig",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/22a72nvgnf2hl5xkq1fgy/CreateFaceRig.jsx?rlkey=l80v4u1w03f62grbz1zxdde2p&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/CreateFaceRig.jsx",
     "en": {
       "name": "Create Face Rig",
       "description": "Opens a 'Face Rig Creator' panel that creates two control nulls (Head_Control and Look_Control) and applies a parallax expression (based on a 0–1 multiplier) to the position of selected layers, using Look_Control as the driver.",
@@ -53,7 +53,7 @@
   {
     "id": "delete-if-no-children-or-matte",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/4eu4d2jfyotz5r9pn4tz9/DeleteIfNoChildrenOrMatte.jsx?rlkey=b7nyy38duv1r20cfcr5tju9dx&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/DeleteIfNoChildrenOrMatte.jsx",
     "en": {
       "name": "Delete If No Children Or Matte",
       "description": "Acts as a 'safety filter' for timeline cleanup. Analyzes selected layers and only deletes those that have no active dependency function. Specifically, it protects and does NOT delete any layer that serves as a 'Parent' of another or is used as a 'Track Matte' by another layer in the project.",
@@ -79,7 +79,7 @@
   {
     "id": "dissolve-parent",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/q7v28brcm31fcvej1uio4/DissolveParent.jsx?rlkey=u7q9lxu7lobtv1y3xq229ikj9&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/DissolveParent.jsx",
     "en": {
       "name": "Dissolve Parent",
       "description": "Eliminates a selected layer (parent) and automatically transfers all its 'children' to the next hierarchy level. If the deleted layer had a parent, the children link to that grandparent; if it had no parent, the children become free but maintain their current position in space.",
@@ -105,7 +105,7 @@
   {
     "id": "freeze-property",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/2iq4o4acakzgrulgvy2wk/FreezeProperty.jsx?rlkey=mymdwhuhvk7x8dzav6mln2zf1&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/FreezeProperty.jsx",
     "en": {
       "name": "Freeze Property",
       "description": "Freezes selected properties by converting their current value into a fixed expression, rounded to two decimal places. This lets you lock animated positions, scales, opacities, etc., cleanly without having to set keyframes.",
@@ -131,7 +131,7 @@
   {
     "id": "move-and-trim",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/07h4tmamqm9jnv1tgnh1s/MoveAndTrim.jsx?rlkey=jyzuzzh3gu7afrodp06p5uxr5&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/MoveAndTrim.jsx",
     "en": {
       "name": "Move And Trim",
       "description": "Automatically adjusts selected layers so they align in time with the layer just below: moves their start to match and trims their duration to end at the same time.",
@@ -157,7 +157,7 @@
   {
     "id": "marker-batch-render",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/up7vf3fg47lz56c7vc3ig/MarkerBatchRender.jsx?rlkey=nwr0tv4x3u3e6qe0dbigg2pxl&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/MarkerBatchRender.jsx",
     "en": {
       "name": "Marker Batch Render",
       "description": "Adds segments of your composition to the Render Queue based on composition markers. Segments are defined from one marker to the next (or end of comp), with output filenames taken from the marker comments.",
@@ -184,7 +184,7 @@
   {
     "id": "marker-copy-paste",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/zznenll3b13vp15yv34n9/MarkerCopyPaste.jsx?rlkey=j4s9jkp4f4eoux1ns2i4qyf7u&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/MarkerCopyPaste.jsx",
     "en": {
       "name": "Marker Copy-Paste",
       "description": "A utility panel to copy composition or layer markers and paste them onto other targets. Includes functions to batch rename markers (search & replace comments) and sync composition markers down to precompositions.",
@@ -211,7 +211,7 @@
   {
     "id": "null-group",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/sosql103z38jichzmcks1/NullGroup.jsx?rlkey=s8g1d2wjvq1wzhpq61vh3akd1&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/NullGroup.jsx",
     "en": {
       "name": "Null Group",
       "description": "Creates a null at the average center of the selected layers (only those without a parent), adjusts its duration to cover from the earliest start to the latest end of those layers, and then parents them to the null.",
@@ -237,7 +237,7 @@
   {
     "id": "puppet-pin-null-creator",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/b0t7bz9kyo7xdu5lrlf8u/PupperPin_NullCreator.jsx?rlkey=7518l66okrvn1wr1h02fff0nc&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/PupperPin_NullCreator.jsx",
     "en": {
       "name": "PuppetPin Null Creator",
       "description": "Creates a null for each Puppet Pin on the mesh of the selected layer, places them on each pin, gives them the same in/out range as the layer, and chains the nulls in hierarchy (each new null parents to the previous) to facilitate articulated rigs; additionally, applies an expression to each pin so it follows the corresponding null.",
@@ -263,7 +263,7 @@
   {
     "id": "project-folder-helper",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/3wkq2txzutj41ct9ntuf5/ProjectFolderHelper.jsx?rlkey=ngv760vybpmkkoj08rben8u1e&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/ProjectFolderHelper.jsx",
     "en": {
       "name": "Project Folder Helper",
       "description": "Lets you 'clone' the organization of your Project panel. You can export your entire current folder hierarchy to a plain text file (.txt) and then import it in any new project to recreate that same structure, maintaining the order of folders and subfolders.",
@@ -289,7 +289,7 @@
   {
     "id": "simple-parent",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/54oae1yw27u7kdp4wx50t/SimpleParent.jsx?rlkey=fyy26lcg6n7vvpyr7tfcchjqd&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/SimpleParent.jsx",
     "en": {
       "name": "Simple Parent",
       "description": "Parents all selected layers to the last layer in the selection. This way you can quickly choose a 'parent' without going layer by layer to the Parent & Link menu.",
@@ -315,7 +315,7 @@
   {
     "id": "simple-parent-unparented",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/2wqc1udgk6lwmf35xfenn/SimpleParent_Unparented.jsx?rlkey=gpg56z1fbjvy1b7midcs3uu5o&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/SimpleParent_Unparented.jsx",
     "en": {
       "name": "Simple Parent (Unparented Only)",
       "description": "Parents selected layers to the last selected layer, but only if they do not already have an assigned parent. This protects existing parent-child hierarchies from being broken.",
@@ -341,7 +341,7 @@
   {
     "id": "sync-shy-layers",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/f55nm7467x3ssee53yy02/SyncShyLayers.jsx?rlkey=a535l182mioylpanhn76qydax&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/SyncShyLayers.jsx",
     "en": {
       "name": "Sync Shy Layers",
       "description": "A dockable utility panel that synchronizes the 'shy' visibility status of layers from a source composition to one or more target compositions. Layers are matched across compositions by name.",
@@ -367,7 +367,7 @@
   {
     "id": "trim-to-keys",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/l8xll9htuzofseoxrig6r/TrimToKeys.jsx?rlkey=5axv307jbxk84ta4y9qdfvqfn&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/TrimToKeys.jsx",
     "en": {
       "name": "Trim To Keys",
       "description": "Automatically trims selected layers so their duration goes from the first to the last keyframe they contain, removing extra time at the start and end.",
@@ -393,7 +393,7 @@
   {
     "id": "zen-ease",
     "version": "1.2.3",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/675sswocf4zafqwyfecpy/zen-ease_v1.2.3.zxp?rlkey=hhjwrmhkmyw5ny9mzzg20mmg3&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/zen-ease/releases/latest/download/zen-ease_v1.2.3.zxp",
     "en": {
       "name": "Zen Ease",
       "description": "A premium cubic Bezier curve editor extension for After Effects. It allows custom easing handle adjustments in a web canvas interface and applies calculated speed and influence coordinates directly to selected keyframes, with shape, color, and curved spatial path estimations.",
@@ -418,7 +418,7 @@
   {
     "id": "renombrator-illustrator",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/9jg75rgbjfwtju6k0to7q/Renombrator_AI.jsx?rlkey=joy9kr305ob20w4xjzk48pz83&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/Renombrator_AI.jsx",
     "en": {
       "name": "Renombrator (Illustrator)",
       "description": "Opens a dialog that allows renaming all artboards of the active document in sequence, with prefix, starting number, and option to pad with leading zeros.",
@@ -444,7 +444,7 @@
   {
     "id": "sort-layers-left-to-right",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/uvvaefw5rz1gycpnnd3q5/Sort_Layers_LeftToRight.jsx?rlkey=mqgp4f54mhvoqevjfm1xrktpa&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/Sort_Layers_LeftToRight.jsx",
     "en": {
       "name": "Sort Layers Left to Right (Illustrator)",
       "description": "Orders all objects in the active layer from left to right, and if two share the same X position, from top to bottom. At the end it changes their stacking order (z-order) in the layer panel to reflect that order.",
@@ -469,7 +469,7 @@
   {
     "id": "sort-layers-reading-order",
     "version": "1.0",
-    "downloadUrl": "https://www.dropbox.com/scl/fi/atv1mwizhj4ept8qnnmpy/Sort_Layers_ReadingOrder.jsx?rlkey=twvomxaf82mfn0sw5f7jym5xe&dl=1",
+    "downloadUrl": "https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/Sort_Layers_ReadingOrder.jsx",
     "en": {
       "name": "Sort Layers Reading Order (Illustrator)",
       "description": "Orders the objects of the active layer following a more natural reading order: from top to bottom, and within each 'line' (by Y proximity) from right to left. This simulates how you would traverse text or elements in blocks.",

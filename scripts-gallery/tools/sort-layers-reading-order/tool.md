@@ -8,7 +8,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/atv1mwizhj4ept8qnnmpy/Sort_Layers_ReadingOrder.jsx?rlkey=twvomxaf82mfn0sw5f7jym5xe&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/Sort_Layers_ReadingOrder.jsx
 page: null
 en:
   name: Sort Layers Reading Order (Illustrator)

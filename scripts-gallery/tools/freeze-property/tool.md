@@ -9,7 +9,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/2iq4o4acakzgrulgvy2wk/FreezeProperty.jsx?rlkey=mymdwhuhvk7x8dzav6mln2zf1&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/FreezeProperty.jsx
 page: null
 en:
   name: Freeze Property

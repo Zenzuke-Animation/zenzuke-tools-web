@@ -9,7 +9,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/b0t7bz9kyo7xdu5lrlf8u/PupperPin_NullCreator.jsx?rlkey=7518l66okrvn1wr1h02fff0nc&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/PupperPin_NullCreator.jsx
 page: null
 en:
   name: PuppetPin Null Creator

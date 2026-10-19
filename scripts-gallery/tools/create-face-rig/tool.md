@@ -8,7 +8,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/22a72nvgnf2hl5xkq1fgy/CreateFaceRig.jsx?rlkey=l80v4u1w03f62grbz1zxdde2p&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/CreateFaceRig.jsx
 page: null
 en:
   name: Create Face Rig

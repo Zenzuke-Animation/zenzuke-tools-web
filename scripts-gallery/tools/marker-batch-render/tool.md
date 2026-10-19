@@ -9,7 +9,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/up7vf3fg47lz56c7vc3ig/MarkerBatchRender.jsx?rlkey=nwr0tv4x3u3e6qe0dbigg2pxl&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/MarkerBatchRender.jsx
 page: null
 en:
   name: Marker Batch Render

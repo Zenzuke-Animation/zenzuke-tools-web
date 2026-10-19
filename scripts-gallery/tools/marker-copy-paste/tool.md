@@ -9,7 +9,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/zznenll3b13vp15yv34n9/MarkerCopyPaste.jsx?rlkey=j4s9jkp4f4eoux1ns2i4qyf7u&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/MarkerCopyPaste.jsx
 page: null
 en:
   name: Marker Copy-Paste

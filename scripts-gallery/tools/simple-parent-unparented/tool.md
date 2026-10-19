@@ -9,7 +9,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/2wqc1udgk6lwmf35xfenn/SimpleParent_Unparented.jsx?rlkey=gpg56z1fbjvy1b7midcs3uu5o&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/SimpleParent_Unparented.jsx
 page: null
 en:
   name: Simple Parent (Unparented Only)

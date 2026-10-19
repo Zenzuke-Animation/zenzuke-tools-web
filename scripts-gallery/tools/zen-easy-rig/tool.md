@@ -8,7 +8,7 @@ version: '1.0'
 status: active
 updated: '2026-10-19'
 license: MIT + Commons Clause
-download: https://github.com/Zenzuke-Animation/adobe-scripts/raw/main/AfterEffects/ZenEasyRig.jsx
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/ZenEasyRig.jsx
 page: null
 en:
   name: Zen Easy Rig

@@ -8,7 +8,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/uvvaefw5rz1gycpnnd3q5/Sort_Layers_LeftToRight.jsx?rlkey=mqgp4f54mhvoqevjfm1xrktpa&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/Sort_Layers_LeftToRight.jsx
 page: null
 en:
   name: Sort Layers Left to Right (Illustrator)

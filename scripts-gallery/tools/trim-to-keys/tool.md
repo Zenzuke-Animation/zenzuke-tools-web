@@ -9,7 +9,7 @@ version: '1.0'
 status: active
 updated: '2026-06-03'
 license: MIT + Commons Clause
-download: https://www.dropbox.com/scl/fi/l8xll9htuzofseoxrig6r/TrimToKeys.jsx?rlkey=5axv307jbxk84ta4y9qdfvqfn&dl=1
+download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/TrimToKeys.jsx
 page: null
 en:
   name: Trim To Keys
