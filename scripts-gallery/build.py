@@ -343,6 +343,15 @@ def build(comprobar: bool = False) -> int:
         else:
             shutil.copy2(elemento, destino)
 
+    # Los imports entre módulos ("./ui.js") no llevan la huella, así que el
+    # navegador podía seguir usando un ui.js viejo tras publicar. Se les añade.
+    huella = version_de_recursos()
+    for modulo in (DIST / "js").glob("*.js"):
+        codigo = modulo.read_text(encoding="utf-8")
+        nuevo = re.sub(r'(from\s+"\./[^"?]+\.js)"', rf'\1?v={huella}"', codigo)
+        if nuevo != codigo:
+            modulo.write_text(nuevo, encoding="utf-8")
+
     (DIST / "scripts.json").write_text(
         json.dumps(datos, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )

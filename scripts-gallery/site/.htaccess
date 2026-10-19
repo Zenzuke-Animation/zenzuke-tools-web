@@ -1,0 +1,11 @@
+# La galería se regenera en cada despliegue: los ficheros deben revalidarse
+# siempre (respuesta 304 barata) para que nadie vea un scripts.json o un ui.js
+# antiguos en caché tras publicar una versión nueva.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|json|js|css)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# Sin listados de directorio.
+Options -Indexes
