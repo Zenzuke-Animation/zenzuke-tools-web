@@ -60,6 +60,15 @@ function acciones(herramienta, lang) {
     contenedor.appendChild(enlace);
   }
 
+  if (herramienta.guideUrl) {
+    const guia = document.createElement("a");
+    guia.className = "guide-btn";
+    guia.href = herramienta.guideUrl;
+    guia.rel = "noopener";
+    guia.textContent = t(lang, "btn-guide");
+    contenedor.appendChild(guia);
+  }
+
   if (herramienta.page) {
     const mas = document.createElement("a");
     mas.className = "tool-page-link";

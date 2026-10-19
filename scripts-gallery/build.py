@@ -122,6 +122,7 @@ def entrada_catalogo(ficha: dict) -> dict:
         "updated": str(ficha["updated"]),
         "license": ficha["license"],
         "page": ficha["page"],
+        "guideUrl": f"{ficha['id']}/{ficha['guide']}" if ficha.get("guide") else None,
         "downloadUrl": ficha["download"],
         "changelog": ficha.get("changelog", []),
         "en": {c: ficha["en"][c] for c in CAMPOS_TEXTO},
