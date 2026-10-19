@@ -24,6 +24,23 @@ cd scripts-gallery
 python3 build.py   # requires PyYAML
 ```
 
+### Per-tool guides
+
+A ficha can ship extra files next to it. Declare them in the front matter and
+`build.py` copies them into `dist/<id>/`:
+
+```yaml
+download: https://github.com/…/releases/latest/download/ZenEasyRig.jsx
+guide: guide.html        # -> tools/<id>/guide.html becomes dist/<id>/guide.html
+```
+
+A missing file fails the build instead of publishing a dead link. The guide is
+then reachable at `zenzuke.com/scripts/<id>/guide.html`, which renders in the
+browser (unlike the copy in the GitHub repo, which GitHub serves as source).
+
+Ficha descriptions accept minimal markdown: `[text](url)`, `**bold**` and
+`` `code` ``. Nothing else is interpreted.
+
 ## Single source of truth
 
 **GitHub is the source of truth for the site.** Every new version is built from
