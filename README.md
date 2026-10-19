@@ -24,7 +24,20 @@ cd scripts-gallery
 python3 build.py   # requires PyYAML
 ```
 
+## Single source of truth
+
+**GitHub is the source of truth for the site.** The live files at
+`zenzuke.com/scripts` and `zenzuke.com/tools` are build outputs, never edited by
+hand and never used to reconstruct the source. To change the site: edit the
+fichas (or `site/`), commit, push, rebuild and deploy.
+
+Downloads always point to GitHub release assets
+(`releases/latest/download/<asset>`). Do not link to Dropbox or to `raw/main`
+files: the latest release must therefore carry **every** asset, or the older
+cards break.
+
 ## Public downloads
+
 
 The actual downloadable scripts live in the releases of their own repos
 (`cavalry-scripts`, `adobe-scripts`, `zen-ease`) — this repo is source only.
