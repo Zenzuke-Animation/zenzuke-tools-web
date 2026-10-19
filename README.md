@@ -26,10 +26,13 @@ python3 build.py   # requires PyYAML
 
 ## Single source of truth
 
-**GitHub is the source of truth for the site.** The live files at
-`zenzuke.com/scripts` and `zenzuke.com/tools` are build outputs, never edited by
-hand and never used to reconstruct the source. To change the site: edit the
-fichas (or `site/`), commit, push, rebuild and deploy.
+**GitHub is the source of truth for the site.** Every new version is built from
+a commit on `main`; the live files are never edited by hand and never used to
+reconstruct the source. To change the site: edit the fichas (or `site/`),
+commit, push, rebuild and deploy.
+
+Local snapshots of what was deployed are fine to keep as a safety net, but they
+are copies, never the source.
 
 Downloads always point to GitHub release assets
 (`releases/latest/download/<asset>`). Do not link to Dropbox or to `raw/main`
