@@ -10,13 +10,14 @@ updated: '2026-10-19'
 license: MIT + Commons Clause
 download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/ZenEasyRig.jsx
 page: null
+guide: guide.html
 en:
   name: Zen Easy Rig
   description: A dockable rigging panel with three tabs. IK builds two-bone IK on layers, 2D points
     (puppet pins, effect points) or a single path. Face creates Head and Look controls that drive face
     parts (move, squash, rotate, flip, show) and generates eyes with lids, pupils and lashes. Extras adds
     Delay, Ignore parent rotation, Fan rig, Morph sliders and Copy / paste controls. Every expression it
-    writes is short and commented so you can edit it by hand.
+    writes is short and commented so you can edit it by hand. The full [Zen Easy Rig guide](zen-easy-rig/guide.html) covers every button.
   instructions: '1. Copy ZenEasyRig.jsx into Scripts/ScriptUI Panels, restart After Effects and open it
     from the Window menu. Dock it next to the Timeline; it scrolls when docked small.
 
@@ -48,7 +49,7 @@ es:
     Look que manejan las partes de la cara (mover, squash, rotar, voltear, mostrar) y genera ojos con párpados,
     pupilas y pestañas. Extras añade Delay, Ignorar rotación del padre, Fan rig, deslizadores de Morph y
     Copiar / pegar controles. Cada expresión que escribe es corta y comentada para que puedas editarla a
-    mano.
+    mano. La [guía completa de Zen Easy Rig](zen-easy-rig/guide.html) explica cada botón.
   instructions: '1. Copia ZenEasyRig.jsx en Scripts/ScriptUI Panels, reinicia After Effects y ábrelo desde
     el menú Ventana. Acóplalo junto a la Línea de tiempo; si queda pequeño tiene scroll.
 

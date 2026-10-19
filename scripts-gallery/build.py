@@ -362,6 +362,20 @@ def build(comprobar: bool = False) -> int:
         )
         print("página propia:", ficha["page"])
 
+    # Guías y otros ficheros propios de una herramienta: se copian tal cual,
+    # junto a la ficha que los declara, a dist/<id>/<fichero>.
+    for ficha in fichas:
+        guia = ficha.get("guide")
+        if not guia:
+            continue
+        origen = TOOLS / ficha["id"] / guia
+        if not origen.is_file():
+            raise FileNotFoundError(f"{ficha['id']}: falta la guía «{guia}»")
+        destino = DIST / ficha["id"] / guia
+        destino.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(origen, destino)
+        print("guía:", f"{ficha['id']}/{guia}")
+
     tamano = sum(p.stat().st_size for p in DIST.rglob("*") if p.is_file())
     print(f"dist/ listo: {len(list(DIST.rglob('*')))} elementos, {tamano / 1024:.1f} KB")
     return 0
