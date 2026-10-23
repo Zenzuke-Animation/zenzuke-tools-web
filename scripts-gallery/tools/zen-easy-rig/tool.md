@@ -4,17 +4,17 @@ hosts:
 - After Effects
 tags:
 - Rigging
-version: '1.0'
+version: '1.1'
 status: active
-updated: '2026-10-19'
+updated: '2026-10-23'
 license: MIT + Commons Clause
 download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/ZenEasyRig.jsx
 page: null
 guide: guide.html
 en:
   name: Zen Easy Rig
-  description: A dockable rigging panel with three tabs. IK builds two-bone IK on layers, 2D points
-    (puppet pins, effect points) or a single path. Face creates Head and Look controls that drive face
+  description: A dockable rigging panel with three tabs. IK builds two-bone IK on layers, shape groups,
+    a whole Puppet effect, 2D points (puppet pins, effect points) or a single path. Face creates Head and Look controls that drive face
     parts (move, squash, rotate, flip, show) and generates eyes with lids, pupils and lashes. Extras adds
     Delay, Ignore parent rotation, Fan rig, Morph sliders and Copy / paste controls. Every expression it
     writes is short and commented so you can edit it by hand. The full [Zen Easy Rig guide](zen-easy-rig/guide.html) covers every button.
@@ -23,7 +23,8 @@ en:
 
     2. Pick the Controller type at the top (Null or guide Shape).
 
-    3. IK: select 3 layers (upper, lower, end), 3 point properties or 1 path and click ''Create IK''.
+    3. IK: select 3 layers (upper, lower, end), 3 shape groups (or a shape layer with 3), a Puppet effect,
+    3 point properties or 1 path and click ''Create IK''.
     Put each anchor point on its joint first.
 
     4. Face: select the head and click ''Create Head + Look controls'', then select face parts, tick what
@@ -44,8 +45,8 @@ en:
     hair with Delay; moving a rig's controls onto a single hub layer.
 es:
   name: Zen Easy Rig
-  description: Un panel de rigging acoplable con tres pestañas. IK crea IK de dos huesos sobre capas,
-    puntos 2D (pines de marioneta, puntos de efectos) o un solo trazado. Cara crea los controles Head y
+  description: Un panel de rigging acoplable con tres pestañas. IK crea IK de dos huesos sobre capas, grupos
+    de forma, un efecto Marioneta completo, puntos 2D (pines de marioneta, puntos de efectos) o un solo trazado. Cara crea los controles Head y
     Look que manejan las partes de la cara (mover, squash, rotar, voltear, mostrar) y genera ojos con párpados,
     pupilas y pestañas. Extras añade Delay, Ignorar rotación del padre, Fan rig, deslizadores de Morph y
     Copiar / pegar controles. Cada expresión que escribe es corta y comentada para que puedas editarla a
@@ -55,7 +56,8 @@ es:
 
     2. Elige arriba el tipo de Controller (Null o Shape guía).
 
-    3. IK: selecciona 3 capas (superior, inferior, final), 3 propiedades de punto o 1 trazado y pulsa
+    3. IK: selecciona 3 capas (superior, inferior, final), 3 grupos de forma (o una capa de forma con 3),
+    un efecto Marioneta, 3 propiedades de punto o 1 trazado y pulsa
     ''Create IK''. Antes pon cada punto de anclaje en su articulación.
 
     4. Cara: selecciona la cabeza y pulsa ''Create Head + Look controls''; luego selecciona las partes,
