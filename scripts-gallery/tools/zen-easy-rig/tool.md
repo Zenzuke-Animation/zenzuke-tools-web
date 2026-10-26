@@ -4,9 +4,9 @@ hosts:
 - After Effects
 tags:
 - Rigging
-version: '1.1'
+version: '1.2'
 status: active
-updated: '2026-10-23'
+updated: '2026-10-26'
 license: MIT + Commons Clause
 download: https://github.com/Zenzuke-Animation/adobe-scripts/releases/latest/download/ZenEasyRig.jsx
 page: null
@@ -15,7 +15,7 @@ en:
   name: Zen Easy Rig
   description: A dockable rigging panel with three tabs. IK builds two-bone IK on layers, shape groups,
     a whole Puppet effect, 2D points (puppet pins, effect points) or a single path. Face creates Head and Look controls that drive face
-    parts (move, squash, rotate, flip, show) and generates eyes with lids, pupils and lashes. Extras adds
+    parts (move, squash, rotate, flip, show) and generates eyes with lids, pupils and lashes (one set of sliders for both eyes, or one per eye). Extras adds
     Delay, Ignore parent rotation, Fan rig, Morph sliders and Copy / paste controls. Every expression it
     writes is short and commented so you can edit it by hand.
   instructions: '1. Copy ZenEasyRig.jsx into Scripts/ScriptUI Panels, restart After Effects and open it
@@ -48,7 +48,7 @@ es:
   description: Un panel de rigging acoplable con tres pestañas. IK crea IK de dos huesos sobre capas, grupos
     de forma, un efecto Marioneta completo, puntos 2D (pines de marioneta, puntos de efectos) o un solo trazado. Cara crea los controles Head y
     Look que manejan las partes de la cara (mover, squash, rotar, voltear, mostrar) y genera ojos con párpados,
-    pupilas y pestañas. Extras añade Delay, Ignorar rotación del padre, Fan rig, deslizadores de Morph y
+    pupilas y pestañas (un juego de deslizadores para los dos ojos o uno por ojo). Extras añade Delay, Ignorar rotación del padre, Fan rig, deslizadores de Morph y
     Copiar / pegar controles. Cada expresión que escribe es corta y comentada para que puedas editarla a
     mano.
   instructions: '1. Copia ZenEasyRig.jsx en Scripts/ScriptUI Panels, reinicia After Effects y ábrelo desde
